@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import api from "../../Services/api";
 import { useState } from "react";
 import jwt_decode from "jwt-decode";
-import Button from "@material-ui/core/";
+import Button from "@mui/material/Button";
 const Login = () => {
   const [token, setToken] = useState("");
   const [userId, setUserId] = useState("");
