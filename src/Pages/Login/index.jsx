@@ -22,28 +22,23 @@ const Login = () => {
   });
 
   const onSubmitFunction = (data) => {
-    console.log(data);
     api
       .post("/sessions/", data)
       .then((response) => {
         const { access } = response.data;
-        // localStorage.setItem("@Habits:Token", JSON.stringify(access));
+        localStorage.setItem("@Habits:Token", JSON.stringify(access));
         const decoded = jwt_decode(access);
-        console.log(response);
-
-        setUserId(decoded);
+        setUserId(decoded.user_id);
         setToken(access);
       })
       .catch((err) => console.log(err));
   };
-  console.log(token);
-  console.log(userId);
 
   return (
     <form onSubmit={handleSubmit(onSubmitFunction)}>
       <input placeholder="Nome de Usuário" {...register("username")} />
       <input placeholder="senha" {...register("password")} />
-      <Button>Entrar</Button>
+      <Button type="submit">Entrar</Button>
     </form>
   );
 };
