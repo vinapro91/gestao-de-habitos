@@ -40,11 +40,10 @@ const Login = () => {
   };
 
   return (
-
     <FullScreen>
       <BoxForm className="BoxForm">
         <h1>Login</h1>
-        <form onSubmit={handleSubmit(onSubmitFunction)}>
+        <form onSubmit={handleSubmit(handleLogin)}>
           <TextField
             fullWidth
             label="Nome do Usuário"
