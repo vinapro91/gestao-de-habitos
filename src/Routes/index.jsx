@@ -1,4 +1,5 @@
-import { Switch, Route } from "react-router";
+import { Switch } from "react-router-dom";
+import Route from "./route";
 import Groups from "../Pages/Groups";
 import Home from "../Pages/Home/Index";
 import Login from "../Pages/Login";
@@ -17,10 +18,10 @@ const Routes = () => {
       <Route path="/signup">
         <SignUp />
       </Route>
-      <Route path="/profile">
+      <Route path="/profile" isPrivate>
         <Profile />
       </Route>
-      <Route path="/groups">
+      <Route path="/groups" isPrivate>
         <Groups />
       </Route>
     </Switch>
