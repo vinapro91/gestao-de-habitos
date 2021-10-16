@@ -2,12 +2,16 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import api from "../../Services/api";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import jwt_decode from "jwt-decode";
 import Button from "@mui/material/Button";
+import { TokenContext } from "../../Providers/Token";
+import { useHistory } from "react-router";
+import { UserIdContext } from "../../Providers/User_Id";
 const Login = () => {
-  const [token, setToken] = useState("");
-  const [userId, setUserId] = useState("");
+  const { token, setToken } = useContext(TokenContext);
+  const { userId, setUserId } = useContext(UserIdContext);
+  console.log(userId);
   const formSchema = yup.object().shape({
     username: yup.string().required("Nome de usuário obrigatório "),
     password: yup.string().required("Digite sua Senha"),
@@ -20,6 +24,7 @@ const Login = () => {
   } = useForm({
     resolver: yupResolver(formSchema),
   });
+  const history = useHistory();
 
   const onSubmitFunction = (data) => {
     api
@@ -30,6 +35,7 @@ const Login = () => {
         const decoded = jwt_decode(access);
         setUserId(decoded.user_id);
         setToken(access);
+        history.push("/Profile");
       })
       .catch((err) => console.log(err));
   };
