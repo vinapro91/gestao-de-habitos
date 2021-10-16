@@ -1,13 +1,13 @@
 import { GroupsProvider } from "./Groups";
 import { TokenProvider } from "./Token";
-import { UserIdProvider } from "./User_Id";
+import { UserIdProvider } from "./User_id";
 
 const Provider = ({ children }) => {
   return (
     <GroupsProvider>
-      <TokenProvider>
-        <UserIdProvider>{children}</UserIdProvider>
-      </TokenProvider>
+      <UserIdProvider>
+        <TokenProvider>{children}</TokenProvider>
+      </UserIdProvider>
     </GroupsProvider>
   );
 };

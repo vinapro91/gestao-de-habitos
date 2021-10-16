@@ -8,11 +8,11 @@ import { BoxForm, ButtonStyled, FullScreen } from "./style.js";
 import { TextField } from "@mui/material";
 import { TokenContext } from "../../Providers/Token";
 import { useHistory } from "react-router";
-import { UserIdContext } from "../../Providers/User_Id";
+import { UserIdContext } from "../../Providers/User_id";
 const Login = () => {
-  const { token, setToken } = useContext(TokenContext);
-  const { userId, setUserId } = useContext(UserIdContext);
-  console.log(userId);
+  const { addToken } = useContext(TokenContext);
+  const { setUserId } = useContext(UserIdContext);
+
   const formSchema = yup.object().shape({
     username: yup.string().required("Nome de usuário obrigatório "),
     password: yup.string().required("Digite sua Senha"),
@@ -27,21 +27,20 @@ const Login = () => {
   });
   const history = useHistory();
 
-  const onSubmitFunction = (data) => {
+  const handleLogin = (data) => {
     api
       .post("/sessions/", data)
       .then((response) => {
-        const { access } = response.data;
-        localStorage.setItem("@Habits:Token", JSON.stringify(access));
-        const decoded = jwt_decode(access);
+        addToken(response.data.access);
+        const decoded = jwt_decode(response.data.access);
         setUserId(decoded.user_id);
-        setToken(access);
         history.push("/Profile");
       })
       .catch((err) => console.log(err));
   };
 
   return (
+
     <FullScreen>
       <BoxForm className="BoxForm">
         <h1>Login</h1>
