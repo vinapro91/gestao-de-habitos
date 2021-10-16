@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import schema from "./schema";
 import api from "../../Services/api";
 import { toast } from "react-toastify";
+import toastOptions from "../../Utils/toastOptions";
 import "react-toastify/dist/ReactToastify.css";
-import { Link } from "react-router-dom";
 
 const SignUpForm = () => {
   const [response, setResponse] = useState({});
@@ -23,17 +24,6 @@ const SignUpForm = () => {
     resolver: yupResolver(schema),
   });
 
-  const options = {
-    position: "top-right",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "colored",
-  };
-
   const handleSignUp = ({ username, email, password }) => {
     api
       .post("/users/", { username, email, password })
@@ -43,7 +33,7 @@ const SignUpForm = () => {
 
   useEffect(() => {
     if (response.status === 201) {
-      toast.success("Cadastro realizado com sucesso!", options);
+      toast.success("Cadastro realizado com sucesso!", toastOptions);
 
       history.push("/login");
     }
@@ -53,8 +43,8 @@ const SignUpForm = () => {
 
   useEffect(() => {
     if (error.status >= 400) {
-      const message = "Já existe um usuário com este username!";
-      toast.error(message, options);
+      const message = "Já existe uma conta com este nome de usuário!";
+      toast.error(message, toastOptions);
 
       setValue("password", "");
       setValue("passwordConfirmation", "");
@@ -83,7 +73,7 @@ const SignUpForm = () => {
         <button type="submit">Cadastrar</button>
       </form>
       <p>
-        Já é cadastrado? <Link to="/login">Faça o login.</Link>
+        Já possui cadastrado? <Link to="/login">Faça o login</Link>.
       </p>
     </>
   );
