@@ -67,7 +67,7 @@ const GroupCard = ({ group }) => {
 
       {isSubscribed ? (
         <button onClick={() => handleUnsubscription(group.id)}>
-          Descreva-se
+          Desinscreva-se
         </button>
       ) : (
         <button onClick={() => handleSubscription(group.id)}>
