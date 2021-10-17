@@ -1,4 +1,5 @@
 import { useHistory } from "react-router";
+import Button from "../../Components/Button";
 import { Container, Content } from "./styles";
 
 const Home = () => {
@@ -13,8 +14,12 @@ const Home = () => {
         <h1>Gestão de Hábitos</h1>
         <p>Faça seu Login ou Registre-se conosco.</p>
         <div>
-          <button onClick={() => handleNav("/login")}>Login</button>
-          <button onClick={() => handleNav("/signup")}>Cadastra-se</button>
+          <Button homePage onClick={() => handleNav("/login")}>
+            Login
+          </Button>
+          <Button homePage registerSchema onClick={() => handleNav("/signup")}>
+            Cadastra-se
+          </Button>
         </div>
       </Content>
     </Container>
