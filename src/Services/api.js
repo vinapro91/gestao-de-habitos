@@ -27,6 +27,24 @@ const genericPost = (url, data) => {
     .catch((error) => error.response);
 };
 
+const genericGet = (url) => {
+  const headers = getHeaders();
+
+  return api
+    .get(url, headers)
+    .then((response) => response)
+    .catch((error) => error.response);
+};
+
+const genericDelete = (url) => {
+  const headers = getHeaders();
+
+  return api
+    .delete(url, headers)
+    .then((response) => response)
+    .catch((error) => error.response);
+};
+
 export const signUpUser = (user) => {
   const url = "/users/";
 
@@ -37,6 +55,18 @@ export const subscribeToAGroup = (id) => {
   const url = `/groups/${id}/subscribe/`;
 
   return genericPost(url, id);
+};
+
+export const getUserSubscriptions = () => {
+  const url = "/groups/subscriptions/";
+
+  return genericGet(url);
+};
+
+export const unsubscribeFromAGroup = (id) => {
+  const url = `/groups/${id}/unsubscribe/`;
+
+  return genericDelete(url);
 };
 
 export default api;
