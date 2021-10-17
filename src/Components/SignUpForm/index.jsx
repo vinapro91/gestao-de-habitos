@@ -4,14 +4,13 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import schema from "./schema";
-import api from "../../Services/api";
+import { signUpUser } from "../../Services/api";
 import { toast } from "react-toastify";
 import toastOptions from "../../Utils/toastOptions";
 import "react-toastify/dist/ReactToastify.css";
 
 const SignUpForm = () => {
   const [response, setResponse] = useState({});
-  const [error, setError] = useState({});
 
   const history = useHistory();
 
@@ -24,26 +23,18 @@ const SignUpForm = () => {
     resolver: yupResolver(schema),
   });
 
-  const handleSignUp = ({ username, email, password }) => {
-    api
-      .post("/users/", { username, email, password })
-      .then((apiResponse) => setResponse(apiResponse))
-      .catch((apiError) => setError(apiError.response));
-  };
-
   useEffect(() => {
     if (response.status === 201) {
-      toast.success("Cadastro realizado com sucesso!", toastOptions);
+      const message = "Cadastro realizado com sucesso!";
+      toast.success(message, toastOptions);
 
       history.push("/login");
-    }
-
-    // eslint-disable-next-line
-  }, [response]);
-
-  useEffect(() => {
-    if (error.status >= 400) {
-      const message = "Já existe uma conta com este nome de usuário!";
+    } else if (response.status >= 400) {
+      const message =
+        response.data.username[0] ===
+        "A user with that username already exists."
+          ? "Já existe uma conta com este nome de usuário!"
+          : "Erro desconhecido";
       toast.error(message, toastOptions);
 
       setValue("password", "");
@@ -51,7 +42,13 @@ const SignUpForm = () => {
     }
 
     // eslint-disable-next-line
-  }, [error]);
+  }, [response]);
+
+  const handleSignUp = ({ username, email, password }) => {
+    signUpUser({ username, email, password }).then((signUpResponse) =>
+      setResponse(signUpResponse)
+    );
+  };
 
   return (
     <>
