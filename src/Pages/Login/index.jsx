@@ -4,7 +4,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import api from "../../Services/api";
 import { useContext } from "react";
 import jwt_decode from "jwt-decode";
-import { BoxForm, ButtonStyled, FullScreen } from "./style.js";
+import { BoxForm, FullScreen } from "./style.js";
+import Button from "../../Components/Button";
 import { TextField } from "@mui/material";
 import { TokenContext } from "../../Providers/Token";
 import { useHistory } from "react-router";
@@ -48,7 +49,7 @@ const Login = () => {
           <TextField
             fullWidth
             label="Nome do Usuário"
-            variant="standard"
+            variant="outlined"
             color="secondary"
             {...register("username")}
           />
@@ -56,12 +57,12 @@ const Login = () => {
             fullWidth
             type="password"
             label="Senha"
-            variant="standard"
+            variant="outlined"
             color="secondary"
             {...register("password")}
           />
 
-          <ButtonStyled type="submit">Entrar</ButtonStyled>
+          <Button type="submit">Entrar</Button>
         </form>
         <p>
           Já possui cadastro?{" "}

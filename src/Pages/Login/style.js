@@ -70,27 +70,3 @@ export const BoxForm = styled.div`
     }
   }
 `;
-
-export const ButtonStyled = styled.button`
-  background-color: #4380b1;
-  height: 35px;
-  width: 130px;
-  border: none;
-  border-radius: 10px;
-  box-shadow: 0 0 4px 1px #c4d7efb8;
-  transition: 1.5s;
-  color: #ffffff;
-
-  font-weight: 500;
-  letter-spacing: 1px;
-
-  @media (min-width: 580px) {
-    &:hover {
-      box-shadow: 0 0 4px 1px #89023f;
-      color: #89023f;
-      transform: scale(110%);
-      letter-spacing: 2px;
-      background-color: #90b7d7;
-    }
-  }
-`;
