@@ -6,20 +6,25 @@ export const GroupsContext = createContext();
 export const GroupsProvider = ({ children }) => {
   const [groups, setGroups] = useState([]);
   const [subscribedGroups, setSubscribedGroups] = useState([]);
+  const [category, setCategory] = useState("");
   const [page, setpage] = useState(1);
 
   useEffect(() => {
-    api.get(`/groups/?page=${page}`).then((response) => {
+    api.get(`/groups/?category=${category}&page=${page}`).then((response) => {
       setGroups(response.data.results);
     });
 
     updateUserSubscriptions();
-  }, [page]);
+  }, [category, page]);
 
   const updateUserSubscriptions = () => {
     getUserSubscriptions().then((subscriptionsResponse) =>
       setSubscribedGroups(subscriptionsResponse.data)
     );
+  };
+
+  const searchByCategory = (searchedTerm) => {
+    setCategory(searchedTerm);
   };
 
   const addToPage = () => {
@@ -38,6 +43,7 @@ export const GroupsProvider = ({ children }) => {
         groups,
         subscribedGroups,
         updateUserSubscriptions,
+        searchByCategory,
         addToPage,
         subToPage,
       }}
