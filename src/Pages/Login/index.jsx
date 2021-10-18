@@ -10,6 +10,7 @@ import { TextField } from "@mui/material";
 import { TokenContext } from "../../Providers/Token";
 import { useHistory } from "react-router";
 import { UserIdContext } from "../../Providers/User_id";
+import { Link } from "react-router-dom";
 const Login = () => {
   const { addToken } = useContext(TokenContext);
   const { addUserId } = useContext(UserIdContext);
@@ -47,18 +48,16 @@ const Login = () => {
         <h1>Login</h1>
         <form onSubmit={handleSubmit(handleLogin)}>
           <TextField
-            fullWidth
             label="Nome do Usuário"
             variant="outlined"
-            color="secondary"
+            color="primary"
             {...register("username")}
           />
           <TextField
-            fullWidth
             type="password"
             label="Senha"
             variant="outlined"
-            color="secondary"
+            color="primary"
             {...register("password")}
           />
 
@@ -67,7 +66,7 @@ const Login = () => {
         <p>
           Já possui cadastro?{" "}
           <span>
-            <a>Cadastre-se</a>
+            <Link to="/signup">Cadastre-se</Link>
           </span>
         </p>
       </BoxForm>
