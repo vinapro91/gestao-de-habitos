@@ -80,4 +80,14 @@ export const getGroup = (id) => {
   return genericGet(url);
 };
 
+export const getHabits = () => {
+  const url = `/habits/personal/`;
+
+  return genericGet(url);
+};
+export const postHabits = (data) => {
+  const url = `/habits/`;
+
+  return genericPost(url, data);
+};
 export default api;
