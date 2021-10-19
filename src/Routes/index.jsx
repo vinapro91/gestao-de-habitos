@@ -1,5 +1,6 @@
 import { Switch } from "react-router-dom";
 import Route from "./route";
+import Group from "../Pages/Group";
 import Groups from "../Pages/Groups";
 import Home from "../Pages/Home/Index";
 import Login from "../Pages/Login";
@@ -13,15 +14,23 @@ const Routes = () => {
       <Route exact path="/">
         <Home />
       </Route>
+
       <Route path="/login">
         <Login />
       </Route>
+
       <Route path="/signup">
         <SignUp />
       </Route>
+
       <Route path="/profile" isPrivate>
         <Profile />
       </Route>
+
+      <Route path="/groups/:id" isPrivate>
+        <Group />
+      </Route>
+
       <Route path="/groups" isPrivate>
         <Groups />
       </Route>

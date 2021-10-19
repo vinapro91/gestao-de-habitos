@@ -4,7 +4,19 @@ import { GroupsContext } from "../../Providers/Groups";
 import { UserIdContext } from "../../Providers/User_id";
 import ProgressBar from "@ramonak/react-progress-bar";
 import api from "../../Services/api";
-import { Container, Content, ProfileDIv } from "./style";
+import {
+  BodyProfile,
+  BoxGroup,
+  CardGroup,
+  Container,
+  Content,
+  MetasGroups,
+  ProfileDIv,
+  ShowGroups,
+  Meta,
+  ShowMetas,
+  BoxProfileTop,
+} from "./style";
 import { Link } from "react-router-dom";
 
 const Profile = () => {
@@ -29,54 +41,70 @@ const Profile = () => {
   };
   return (
     <Container>
-      <ProfileDIv>
-        <h2>Bem Vindo , {userInfo.username}</h2>
-        <button onClick={logout}>Sair</button>
-      </ProfileDIv>
+      <BoxProfileTop>
+        <ProfileDIv>
+          <h2>Bem Vindo , {userInfo.username}</h2>
+          <button onClick={logout}>Sair</button>
+        </ProfileDIv>
+      </BoxProfileTop>
+      <BodyProfile>
+        <BoxGroup>
+          <div>
+            <h2>Grupos</h2>
+            <p>
+              <Link to="/groups">Mostrar mais grupos</Link>
+            </p>
+          </div>
+          <ShowGroups>
+            {subscribedGroups.map((group, index) => (
+              <CardGroup key={index}>
+                <div className="nameCategoryGroup">
+                  <h3>{group.name}</h3>
+                  <p>{group.category}</p>
+                </div>
+                <div className="descriptionCard">
+                  <p>
+                    <span className="txtDescription">Descrição:</span>
+                    {group.description}
+                  </p>
+                </div>
+              </CardGroup>
+            ))}
+          </ShowGroups>
+        </BoxGroup>
 
-      <div>
-        <h2>Grupos</h2>
-        <p>
-          <Link to="/groups">Mostrar mais grupos</Link>
-        </p>
-        <ul>
-          {subscribedGroups.map((group, index) => (
-            <li key={index}>
-              <p>Nome do grupo : {group.name}</p>
-              <p>Categoria : {group.category}</p>
-
-              <p>Descrição : {group.description}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div>
-        <h2> Metas</h2>
-        <ul>
-          {subscribedGroups.map((group, indexGoup) => (
-            <ul key={indexGoup}>
-              {group.goals.map((goal, indexGoals) => (
-                <li key={indexGoals}>
-                  <p>Meta: {goal.title}</p>
-                  <p>dificuldade: {goal.difficulty}</p>
-                  <Content>
-                    <ProgressBar
-                      completed={goal.how_much_achieved}
-                      bgColor="#60D272"
-                      height="25px"
-                      width="80%"
-                      labelAlignment="center"
-                      baseBgColor="#EC4F4F"
-                      labelColor="#8d8383"
-                    />
-                  </Content>
-                  <p>Progresso: {goal.how_much_achieved}</p>
-                </li>
-              ))}
-            </ul>
-          ))}
-        </ul>
-      </div>
+        <MetasGroups>
+          <div className="titleMetas">
+            <h2> Metas</h2>
+          </div>
+          <ShowMetas>
+            {subscribedGroups.map((group, indexGoup) => (
+              <ul key={indexGoup}>
+                {group.goals.map((goal, indexGoals) => (
+                  <Meta key={indexGoals}>
+                    <h3>{goal.title}</h3>
+                    <p>dificuldade: {goal.difficulty}</p>
+                    <Content>
+                      <p>
+                        Progresso:
+                        <ProgressBar
+                          completed={goal.how_much_achieved}
+                          bgColor="#60D272"
+                          height="25px"
+                          width="80%"
+                          labelAlignment="center"
+                          baseBgColor="#EC4F4F"
+                          labelColor="#8d8383"
+                        />
+                      </p>
+                    </Content>
+                  </Meta>
+                ))}
+              </ul>
+            ))}
+          </ShowMetas>
+        </MetasGroups>
+      </BodyProfile>
     </Container>
   );
 };
