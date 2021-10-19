@@ -69,6 +69,12 @@ export const unsubscribeFromAGroup = (id) => {
   return genericDelete(url);
 };
 
+
+export const createGroup = (data) => {
+  const url = "/groups/";
+
+  return genericPost(url, data);
+
 export const getGroup = (id) => {
   const url = `/groups/${id}/`;
 
