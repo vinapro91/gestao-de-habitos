@@ -8,6 +8,8 @@ import { signUpUser } from "../../Services/api";
 import { toast } from "react-toastify";
 import toastOptions from "../../Utils/toastOptions";
 import "react-toastify/dist/ReactToastify.css";
+import { TextField } from "@mui/material";
+import Button from "../../Components/Button";
 
 const SignUpForm = () => {
   const [response, setResponse] = useState({});
@@ -53,24 +55,31 @@ const SignUpForm = () => {
   return (
     <>
       <form onSubmit={handleSubmit(handleSignUp)}>
-        <input {...register("username")} />
+        <TextField label="Username" {...register("username")} />
         {errors.username && <p>{errors.username.message}</p>}
 
-        <input {...register("email")} />
+        <TextField label="E-mail" {...register("email")} />
         {errors.email && <p>{errors.email.message}</p>}
 
-        <input type="password" {...register("password")} />
+        <TextField label="Senha" type="password" {...register("password")} />
         {errors.password && <p>{errors.password.message}</p>}
 
-        <input type="password" {...register("passwordConfirmation")} />
+        <TextField
+          label="Confirmar senha"
+          type="password"
+          {...register("passwordConfirmation")}
+        />
         {errors.passwordConfirmation && (
           <p>{errors.passwordConfirmation.message}</p>
         )}
 
-        <button type="submit">Cadastrar</button>
+        <Button type="submit">Cadastrar</Button>
       </form>
       <p>
-        Já possui cadastrado? <Link to="/login">Faça o login</Link>.
+        Já possui cadastrado?
+        <span>
+          <Link to="/login"> Faça o login</Link>.
+        </span>
       </p>
     </>
   );

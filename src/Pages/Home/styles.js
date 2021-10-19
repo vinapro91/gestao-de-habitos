@@ -17,7 +17,7 @@ export const Content = styled.div`
   max-width: 320px;
   h1 {
     color: #fff;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
     font-family: "Pacifico", cursive;
     letter-spacing: 4px;
     font-size: 1.7rem;

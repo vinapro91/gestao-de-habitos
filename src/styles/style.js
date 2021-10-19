@@ -19,7 +19,7 @@ const GlobalStyles = createGlobalStyle`
         --lightGreen: #60D272;
         --white: #f5f5f5;
         --black: #0c0d0d;
-        --gray: #666360;
+        --darkPink: #89023f;
         --red: #EC4F4F;
         --hoverBlue: #191970;
  }

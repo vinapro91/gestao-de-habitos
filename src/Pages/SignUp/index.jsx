@@ -1,11 +1,14 @@
 import SignUpForm from "../../Components/SignUpForm";
+import { BoxForm, FullScreen } from "./style";
 
 const SignUp = () => {
   return (
-    <>
-      <h1>SignUp</h1>
-      <SignUpForm />
-    </>
+    <FullScreen>
+      <BoxForm>
+        <h1>Cadastre-se</h1>
+        <SignUpForm />
+      </BoxForm>
+    </FullScreen>
   );
 };
 
