@@ -33,12 +33,10 @@ const Profile = () => {
   const history = useHistory();
 
   const logout = () => {
-    history.push("/");
+    window.location.reload();
     localStorage.clear();
   };
-  const showAllGroups = () => {
-    history.push("/groups");
-  };
+
   return (
     <Container>
       <BoxProfileTop>
@@ -63,11 +61,31 @@ const Profile = () => {
                   <p>{group.category}</p>
                 </div>
                 <div className="descriptionCard">
-                  <p>
-                    <span className="txtDescription">Descrição:</span>
-                    {group.description}
-                  </p>
+                  <span className="txtDescription">Descrição:</span>
+                  {group.description}
                 </div>
+                {group.goals.map((goal, indexGoal) => (
+                  <>
+                    <Meta key={indexGoal}>
+                      <h3>{goal.title}</h3>
+                      <p>dificuldade: {goal.difficulty}</p>
+                      <Content>
+                        <p>
+                          Progresso:
+                          <ProgressBar
+                            completed={goal.how_much_achieved}
+                            bgColor="#60D272"
+                            height="25px"
+                            width="80%"
+                            labelAlignment="center"
+                            baseBgColor="#EC4F4F"
+                            labelColor="#8d8383"
+                          />
+                        </p>
+                      </Content>
+                    </Meta>
+                  </>
+                ))}
               </CardGroup>
             ))}
           </ShowGroups>
