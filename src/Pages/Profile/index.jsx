@@ -85,18 +85,16 @@ const Profile = () => {
                     <h3>{goal.title}</h3>
                     <p>dificuldade: {goal.difficulty}</p>
                     <Content>
-                      <p>
-                        Progresso:
-                        <ProgressBar
-                          completed={goal.how_much_achieved}
-                          bgColor="#60D272"
-                          height="25px"
-                          width="80%"
-                          labelAlignment="center"
-                          baseBgColor="#EC4F4F"
-                          labelColor="#8d8383"
-                        />
-                      </p>
+                      <p>Progresso:</p>
+                      <ProgressBar
+                        completed={goal.how_much_achieved}
+                        bgColor="#60D272"
+                        height="25px"
+                        width="80%"
+                        labelAlignment="center"
+                        baseBgColor="#EC4F4F"
+                        labelColor="#8d8383"
+                      />
                     </Content>
                   </Meta>
                 ))}
