@@ -22,15 +22,25 @@ export const Content = styled.div`
   justify-content: center;
 `;
 
-export const ProfileDIv = styled.div`
-  width: 96%;
-  min-height: 10%;
-  margin: 5px 0;
-  padding: 0 20px;
-  background-color: #96e2f8;
+export const BoxProfileTop = styled.div`
+  background-color: #237c95;
+  width: 100%;
+  height: 12%;
 
   position: fixed;
   top: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const ProfileDIv = styled.div`
+  width: 96%;
+  min-height: 80%;
+  margin: 5px 0;
+  padding: 0 20px;
+  background-color: #96e2f8;
 
   border-radius: 10px;
 
@@ -50,7 +60,7 @@ export const BodyProfile = styled.div`
 `;
 
 export const BoxGroup = styled.div`
-  width: 100%;
+  width: 97%;
   height: 350px;
   display: flex;
   flex-direction: column;

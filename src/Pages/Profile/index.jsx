@@ -15,6 +15,7 @@ import {
   ShowGroups,
   Meta,
   ShowMetas,
+  BoxProfileTop,
 } from "./style";
 import { Link } from "react-router-dom";
 
@@ -40,10 +41,12 @@ const Profile = () => {
   };
   return (
     <Container>
-      <ProfileDIv>
-        <h2>Bem Vindo , {userInfo.username}</h2>
-        <button onClick={logout}>Sair</button>
-      </ProfileDIv>
+      <BoxProfileTop>
+        <ProfileDIv>
+          <h2>Bem Vindo , {userInfo.username}</h2>
+          <button onClick={logout}>Sair</button>
+        </ProfileDIv>
+      </BoxProfileTop>
       <BodyProfile>
         <BoxGroup>
           <div>
