@@ -5,6 +5,7 @@ import Home from "../Pages/Home/Index";
 import Login from "../Pages/Login";
 import Profile from "../Pages/Profile";
 import SignUp from "../Pages/SignUp";
+import CreateGroup from "../Pages/CreateGroup";
 
 const Routes = () => {
   return (
@@ -23,6 +24,9 @@ const Routes = () => {
       </Route>
       <Route path="/groups" isPrivate>
         <Groups />
+      </Route>
+      <Route path="/createGroup" isPrivate>
+        <CreateGroup />
       </Route>
     </Switch>
   );
