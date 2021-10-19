@@ -6,6 +6,7 @@ const GlobalStyles = createGlobalStyle`
      margin: 0;
      padding: 0;
      box-sizing: border-box;
+     text-decoration: none;
 	 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 
@@ -40,15 +41,28 @@ table {
 	border-spacing: 0;
 }
 
+
 ::-webkit-scrollbar {
-  width: 4px;               /* width of the entire scrollbar */
-  height: 6px;               /* width of the entire scrollbar */
+  width: 0;               /* width of the entire scrollbar */
+  height: 0;               /* width of the entire scrollbar */
 }
 
 ::-webkit-scrollbar-thumb {
   background-color: #0a0a0a;    /* color of the scroll thumb */
   border-radius: 20px;       /* roundness of the scroll thumb */
 }
+
+
+@media (min-width: 790px) {
+
+  ::-webkit-scrollbar {
+  width: 4px;               /* width of the entire scrollbar */
+  height: 6px;               /* width of the entire scrollbar */
+}
+
+}
+
+
 
 
 `;
