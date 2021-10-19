@@ -97,20 +97,28 @@ const Group = () => {
 
       <p>Metas: </p>
       <ul>
-        {group.goals.map((goal, index) => (
-          <li key={index}>{`${goal.title} (${goal.difficulty})`}</li>
-        ))}
+        {group.goals.length > 0 ? (
+          group.goals.map((goal, index) => (
+            <li key={index}>{`${goal.title} (${goal.difficulty})`}</li>
+          ))
+        ) : (
+          <p>Não há metas para este grupo.</p>
+        )}
       </ul>
 
       <hr />
 
       <p>Atividades: </p>
       <ul>
-        {group.activities.map((activity, index) => (
-          <li
-            key={index}
-          >{`${activity.title} (${activity.realization_time})`}</li>
-        ))}
+        {group.activities.length > 0 ? (
+          group.activities.map((activity, index) => (
+            <li
+              key={index}
+            >{`${activity.title} (${activity.realization_time})`}</li>
+          ))
+        ) : (
+          <p>Não há atividades para este grupo.</p>
+        )}
       </ul>
 
       <hr />
