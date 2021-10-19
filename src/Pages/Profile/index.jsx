@@ -66,13 +66,13 @@ const Profile = () => {
                 </div>
                 {group.goals.map((goal, indexGoal) => (
                   <>
-                    <Meta key={indexGoal}>
+                    <div key={indexGoal}>
                       <h3>{goal.title}</h3>
                       <p>dificuldade: {goal.difficulty}</p>
-                      <Content>
+                      <div>
                         <p>
                           Progresso:
-                          <ProgressBar
+                          {/* <ProgressBar
                             completed={goal.how_much_achieved}
                             bgColor="#60D272"
                             height="25px"
@@ -80,10 +80,10 @@ const Profile = () => {
                             labelAlignment="center"
                             baseBgColor="#EC4F4F"
                             labelColor="#8d8383"
-                          />
+                          /> */}
                         </p>
-                      </Content>
-                    </Meta>
+                      </div>
+                    </div>
                   </>
                 ))}
               </CardGroup>
