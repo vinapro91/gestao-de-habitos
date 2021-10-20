@@ -45,6 +45,15 @@ const genericDelete = (url) => {
     .catch((error) => error.response);
 };
 
+const genericPatch = (url, data) => {
+  const headers = getHeaders();
+
+  return api
+    .patch(url, data, headers)
+    .then((response) => response)
+    .catch((error) => error.response);
+};
+
 export const signUpUser = (user) => {
   const url = "/users/";
 
@@ -101,7 +110,26 @@ export const getActivities = (data) => {
 
 export const deletHabit = (id) => {
   const url = `/habits/${id}/`;
+
   return genericDelete(url);
+};
+
+export const updateGroupCategory = (id, data) => {
+  const url = `/groups/${id}/`;
+
+  return genericPatch(url, data);
+};
+
+export const addGoal = (data) => {
+  const url = "/goals/";
+
+  return genericPost(url, data);
+};
+
+export const addActivity = (data) => {
+  const url = "/activities/";
+
+  return genericPost(url, data);
 };
 
 export default api;
