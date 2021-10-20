@@ -1,86 +1,37 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { toast } from "react-toastify";
-import toastOptions from "../../Utils/toastOptions";
+import { getGroup } from "../../Services/api";
+import GroupCategory from "../../Components/GroupCategory";
+import GroupMembers from "../../Components/GroupMembers";
+import GroupGoals from "../../Components/GroupGoals";
+import GroupActivities from "../../Components/GroupActivities";
+import GroupToggleSubscription from "../../Components/GroupToggleSubscription";
 import {
-  getGroup,
-  subscribeToAGroup,
-  unsubscribeFromAGroup,
-} from "../../Services/api";
-import { GroupsContext } from "../../Providers/Groups";
-import {
-  Box,
-  BoxDetails,
-  ContainerGroup,
-  BoxButton,
-  HeaderGroup,
-  BodyGroup,
   BackGroundHeader,
+  BodyGroup,
+  Box,
+  BoxButton,
+  ContainerGroup,
+  HeaderGroup,
 } from "./style";
-import ActivitiesList from "../../Components/ActivitiesList";
-
-const isUserSubscribed = (subscribedGroups, group) =>
-  subscribedGroups.some((subscribedGroup) => subscribedGroup.id === group.id);
 
 const Group = () => {
-  const { subscribedGroups, updateUserSubscriptions } =
-    useContext(GroupsContext);
-
   const [group, setGroup] = useState({});
 
-  const [reponse, setResponse] = useState({});
-
   const [isLoading, setIsLoading] = useState(true);
-
-  const [isSubscribed, setIsSubscribed] = useState(false);
 
   const { id } = useParams();
 
   useEffect(() => {
+    updateGroup();
+    // eslint-disable-next-line
+  }, [id]);
+
+  const updateGroup = () => {
     getGroup(id).then((response) => {
       setGroup({ ...response.data });
       setIsLoading(false);
     });
-
-    // eslint-disable-next-line
-  }, [id]);
-
-  useEffect(() => {
-    if (reponse.status === 200) {
-      const message = "Usario inscrito no grupo com sucesso!";
-      toast.success(message, toastOptions);
-
-      updateUserSubscriptions();
-    } else if (reponse.status === 204) {
-      const message = "Usario desinscrito do grupo com sucesso!";
-      toast.success(message, toastOptions);
-
-      updateUserSubscriptions();
-    } else if (reponse.status >= 400) {
-      const message =
-        reponse.data.message === "User already on group"
-          ? "Usuário já cadastrado no grupo."
-          : reponse.data.message;
-      toast.error(message, toastOptions);
-    }
-
-    // eslint-disable-next-line
-  }, [reponse]);
-
-  useEffect(() => {
-    setIsSubscribed(isUserSubscribed(subscribedGroups, group));
-  }, [subscribedGroups, group]);
-
-  const handleSubscription = (groupId) => {
-    subscribeToAGroup(groupId).then((subscribeResponse) =>
-      setResponse(subscribeResponse)
-    );
-  };
-
-  const handleUnsubscription = (groupId) => {
-    unsubscribeFromAGroup(groupId).then((unsubscribeResponse) =>
-      setResponse(unsubscribeResponse)
-    );
   };
 
   if (isLoading) {
@@ -93,64 +44,29 @@ const Group = () => {
         <HeaderGroup>
           <h1>{group.name}</h1>
           <p>{group.description}</p>
-          <p>{group.category}</p>
+
+          <GroupCategory group={group} updateGroup={updateGroup} />
+
           <p>{`Criador: ${group.creator.username} (${group.creator.email})`}</p>
         </HeaderGroup>
       </BackGroundHeader>
 
       <BodyGroup>
         <Box>
-          <details>
-            <summary>Membros</summary>
-            <BoxDetails>
-              <ul>
-                {group.users_on_group.map((user, index) => (
-                  <li key={index}>{`${user.username} (${user.email})`}</li>
-                ))}
-              </ul>
-            </BoxDetails>
-          </details>
+          <GroupMembers group={group} />
         </Box>
 
         <Box>
-          <details>
-            <summary>Metas</summary>
-            <BoxDetails>
-              <ul>
-                {group.goals.length > 0 ? (
-                  group.goals.map((goal, index) => (
-                    <li key={index}>{`${goal.title} (${goal.difficulty})`}</li>
-                  ))
-                ) : (
-                  <p>Não há metas para este grupo.</p>
-                )}
-              </ul>
-            </BoxDetails>
-          </details>
+          <GroupGoals group={group} updateGroup={updateGroup} />
         </Box>
 
         <Box>
-          <details>
-            <summary>Atividades</summary>
-            <BoxDetails>
-              <ul>
-                <ActivitiesList id={id} />
-              </ul>
-            </BoxDetails>
-          </details>
+          <GroupActivities group={group} updateGroup={updateGroup} />
         </Box>
       </BodyGroup>
 
       <BoxButton>
-        {isSubscribed ? (
-          <button onClick={() => handleUnsubscription(group.id)}>
-            Desinscreva-se
-          </button>
-        ) : (
-          <button onClick={() => handleSubscription(group.id)}>
-            Inscreva-se
-          </button>
-        )}
+        <GroupToggleSubscription group={group} updateGroup={updateGroup} />
       </BoxButton>
     </ContainerGroup>
   );
