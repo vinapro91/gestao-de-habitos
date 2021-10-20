@@ -69,10 +69,25 @@ export const unsubscribeFromAGroup = (id) => {
   return genericDelete(url);
 };
 
+export const createGroup = (data) => {
+  const url = "/groups/";
+
+  return genericPost(url, data);
+};
 export const getGroup = (id) => {
   const url = `/groups/${id}/`;
 
   return genericGet(url);
 };
 
+export const getHabits = () => {
+  const url = `/habits/personal/`;
+
+  return genericGet(url);
+};
+export const postHabits = (data) => {
+  const url = `/habits/`;
+
+  return genericPost(url, data);
+};
 export default api;
