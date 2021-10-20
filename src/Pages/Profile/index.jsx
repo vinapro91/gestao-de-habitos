@@ -118,6 +118,7 @@ const Profile = () => {
                   </Meta>
                 ))}
               </ul>
+            ))}
             {habits.map((habit, indexHabit) => (
               <div key={indexHabit}>
                 <div>Habito: {habit.title}</div>
