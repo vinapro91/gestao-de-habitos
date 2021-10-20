@@ -17,6 +17,7 @@ import {
   BodyGroup,
   BackGroundHeader,
 } from "./style";
+import ActivitiesList from "../../Components/ActivitiesList";
 
 const isUserSubscribed = (subscribedGroups, group) =>
   subscribedGroups.some((subscribedGroup) => subscribedGroup.id === group.id);
@@ -133,15 +134,7 @@ const Group = () => {
             <summary>Atividades</summary>
             <BoxDetails>
               <ul>
-                {group.activities.length > 0 ? (
-                  group.activities.map((activity, index) => (
-                    <li
-                      key={index}
-                    >{`${activity.title} (${activity.realization_time})`}</li>
-                  ))
-                ) : (
-                  <p>Não há atividades para este grupo.</p>
-                )}
+                <ActivitiesList id={id} />
               </ul>
             </BoxDetails>
           </details>

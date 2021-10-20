@@ -74,6 +74,7 @@ export const createGroup = (data) => {
 
   return genericPost(url, data);
 };
+
 export const getGroup = (id) => {
   const url = `/groups/${id}/`;
 
@@ -85,9 +86,17 @@ export const getHabits = () => {
 
   return genericGet(url);
 };
+
 export const postHabits = (data) => {
   const url = `/habits/`;
 
   return genericPost(url, data);
 };
+
+export const getActivities = (data) => {
+  const url = `/activities/?group=${data}&page=1`;
+
+  return genericGet(url);
+};
+
 export default api;
