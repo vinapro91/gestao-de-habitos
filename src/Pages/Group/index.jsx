@@ -8,6 +8,15 @@ import {
   unsubscribeFromAGroup,
 } from "../../Services/api";
 import { GroupsContext } from "../../Providers/Groups";
+import {
+  Box,
+  BoxDetails,
+  ContainerGroup,
+  BoxButton,
+  HeaderGroup,
+  BodyGroup,
+  BackGroundHeader,
+} from "./style";
 
 const isUserSubscribed = (subscribedGroups, group) =>
   subscribedGroups.some((subscribedGroup) => subscribedGroup.id === group.id);
@@ -78,61 +87,79 @@ const Group = () => {
   }
 
   return (
-    <>
-      <h1>{`Nome do grupo: ${group.name}`}</h1>
-      <p>{`Descrição: ${group.description}`}</p>
-      <p>{`Categoria: ${group.category}`}</p>
+    <ContainerGroup>
+      <BackGroundHeader>
+        <HeaderGroup>
+          <h1>{group.name}</h1>
+          <p>{group.description}</p>
+          <p>{group.category}</p>
+          <p>{`Criador: ${group.creator.username} (${group.creator.email})`}</p>
+        </HeaderGroup>
+      </BackGroundHeader>
 
-      <hr />
+      <BodyGroup>
+        <Box>
+          <details>
+            <summary>Membros</summary>
+            <BoxDetails>
+              <ul>
+                {group.users_on_group.map((user, index) => (
+                  <li key={index}>{`${user.username} (${user.email})`}</li>
+                ))}
+              </ul>
+            </BoxDetails>
+          </details>
+        </Box>
 
-      <p>{`Criador: ${group.creator.username} (${group.creator.email})`}</p>
-      <p>Membros: </p>
-      <ul>
-        {group.users_on_group.map((user, index) => (
-          <li key={index}>{`${user.username} (${user.email})`}</li>
-        ))}
-      </ul>
+        <Box>
+          <details>
+            <summary>Metas</summary>
+            <BoxDetails>
+              <ul>
+                {group.goals.length > 0 ? (
+                  group.goals.map((goal, index) => (
+                    <li key={index}>{`${goal.title} (${goal.difficulty})`}</li>
+                  ))
+                ) : (
+                  <p>Não há metas para este grupo.</p>
+                )}
+              </ul>
+            </BoxDetails>
+          </details>
+        </Box>
 
-      <hr />
+        <Box>
+          <details>
+            <summary>Atividades</summary>
+            <BoxDetails>
+              <ul>
+                {group.activities.length > 0 ? (
+                  group.activities.map((activity, index) => (
+                    <li
+                      key={index}
+                    >{`${activity.title} (${activity.realization_time})`}</li>
+                  ))
+                ) : (
+                  <p>Não há atividades para este grupo.</p>
+                )}
+              </ul>
+            </BoxDetails>
+          </details>
+        </Box>
+      </BodyGroup>
 
-      <p>Metas: </p>
-      <ul>
-        {group.goals.length > 0 ? (
-          group.goals.map((goal, index) => (
-            <li key={index}>{`${goal.title} (${goal.difficulty})`}</li>
-          ))
+      <BoxButton>
+        {isSubscribed ? (
+          <button onClick={() => handleUnsubscription(group.id)}>
+            Desinscreva-se
+          </button>
         ) : (
-          <p>Não há metas para este grupo.</p>
+          <button onClick={() => handleSubscription(group.id)}>
+            Inscreva-se
+          </button>
         )}
-      </ul>
-
-      <hr />
-
-      <p>Atividades: </p>
-      <ul>
-        {group.activities.length > 0 ? (
-          group.activities.map((activity, index) => (
-            <li
-              key={index}
-            >{`${activity.title} (${activity.realization_time})`}</li>
-          ))
-        ) : (
-          <p>Não há atividades para este grupo.</p>
-        )}
-      </ul>
-
-      <hr />
-
-      {isSubscribed ? (
-        <button onClick={() => handleUnsubscription(group.id)}>
-          Desinscreva-se
-        </button>
-      ) : (
-        <button onClick={() => handleSubscription(group.id)}>
-          Inscreva-se
-        </button>
-      )}
-    </>
+      </BoxButton>
+    </ContainerGroup>
   );
 };
 

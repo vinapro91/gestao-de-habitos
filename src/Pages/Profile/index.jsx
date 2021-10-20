@@ -97,6 +97,27 @@ const Profile = () => {
             <h2> Hábitos</h2>
           </div>
           <ShowMetas>
+            {subscribedGroups.map((group, indexGoup) => (
+              <ul key={indexGoup}>
+                {group.goals.map((goal, indexGoals) => (
+                  <Meta key={indexGoals}>
+                    <h3>{goal.title}</h3>
+                    <p>dificuldade: {goal.difficulty}</p>
+                    <Content>
+                      <p>Progresso:</p>
+                      <ProgressBar
+                        completed={goal.how_much_achieved}
+                        bgColor="#60D272"
+                        height="25px"
+                        width="80%"
+                        labelAlignment="center"
+                        baseBgColor="#EC4F4F"
+                        labelColor="#8d8383"
+                      />
+                    </Content>
+                  </Meta>
+                ))}
+              </ul>
             {habits.map((habit, indexHabit) => (
               <div key={indexHabit}>
                 <div>Habito: {habit.title}</div>
