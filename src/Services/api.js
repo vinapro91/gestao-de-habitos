@@ -111,4 +111,10 @@ export const deleteActivity = (data) => {
   return genericDelete(url);
 };
 
+export const deletHabit = (id) => {
+  const url = `/habits/${id}/`;
+
+  return genericDelete(url);
+};
+
 export default api;
