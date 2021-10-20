@@ -99,4 +99,16 @@ export const getActivities = (data) => {
   return genericGet(url);
 };
 
+export const postActivities = (data) => {
+  const url = "/activities/";
+
+  return genericPost(url, data);
+};
+
+export const deleteActivity = (data) => {
+  const url = `/activities/${data}/`;
+
+  return genericDelete(url);
+};
+
 export default api;
