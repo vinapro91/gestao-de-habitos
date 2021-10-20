@@ -3,14 +3,12 @@ import { Container } from "../Profile/style";
 
 export const ContainerGroup = styled(Container)``;
 
-export const BackGroundHeader = styled.div`
-  width: 100%;
-  height: 22vh;
+export const BoxOverFlow = styled.div`
+  min-width: 100%;
+  max-width: 100%;
 
-  position: fixed;
-  top: 0;
-
-  background-color: #237c95;
+  /* min-height: 100%; */
+  max-height: 100%;
 
   display: flex;
   flex-direction: column;
@@ -21,14 +19,15 @@ export const Box = styled.div`
   background-color: #96e2f8;
   width: 90%;
   min-height: 30px;
-  max-height: 60%;
+  max-height: 175px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
 
-  margin: 5px;
+  margin: 3px;
+  padding-bottom: 5px;
   border-radius: 20px;
 
   h1 {
@@ -42,7 +41,7 @@ export const Box = styled.div`
     summary {
       height: 30px;
       width: 100%;
-      border: 1px solid #cc43e8;
+      /* border: 1px solid #cc43e8; */
       border-radius: 15px;
       cursor: pointer;
 
@@ -54,14 +53,8 @@ export const Box = styled.div`
   }
 `;
 
-export const HeaderGroup = styled(Box).attrs("header")`
-  min-height: 20vh;
-`;
-
 export const BodyGroup = styled.main`
-  margin-top: 23vh;
   width: 100%;
-  height: 90%;
 
   display: flex;
   flex-direction: column;
@@ -69,7 +62,8 @@ export const BodyGroup = styled.main`
 `;
 
 export const BoxDetails = styled.div`
-  height: 90%;
+  max-height: 100%;
+  height: 78%;
   width: 100%;
   text-align: center;
 
@@ -89,7 +83,7 @@ export const BoxDetails = styled.div`
       height: 55px;
       margin: 5px 0;
 
-      border: 1px solid #3cb2a0;
+      border: 1px solid #cc43e8;
       border-radius: 20px;
 
       display: flex;
@@ -100,6 +94,49 @@ export const BoxDetails = styled.div`
   }
 
   /* background: #31e3e3; */
+`;
+
+export const HeaderGroup = styled.header`
+  width: 99%;
+  min-height: 35px;
+  margin-top: 5px;
+  padding-bottom: 10px;
+
+  background-color: #96e2f8;
+  border-radius: 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+
+  details {
+    height: 100%;
+    width: 100%;
+
+    summary {
+      height: 30px;
+      width: 100%;
+      /* border: 1px solid #cc43e8; */
+      border-radius: 15px;
+      cursor: pointer;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  h1 {
+    font-size: 18px;
+    font-weight: 500;
+    text-decoration: underline;
+  }
+  p {
+    font-size: 15px;
+    text-align: center;
+  }
 `;
 
 export const BoxButton = styled.div`

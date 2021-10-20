@@ -15,7 +15,7 @@ import {
   BoxButton,
   HeaderGroup,
   BodyGroup,
-  BackGroundHeader,
+  BoxOverFlow,
 } from "./style";
 
 const isUserSubscribed = (subscribedGroups, group) =>
@@ -88,65 +88,71 @@ const Group = () => {
 
   return (
     <ContainerGroup>
-      <BackGroundHeader>
+      <BoxOverFlow>
         <HeaderGroup>
-          <h1>{group.name}</h1>
-          <p>{group.description}</p>
-          <p>{group.category}</p>
-          <p>{`Criador: ${group.creator.username} (${group.creator.email})`}</p>
+          <details>
+            <summary>
+              <h1>{group.name}</h1>
+            </summary>
+            <p>{group.description}</p>
+            <p>{group.category}</p>
+            <p>{`Criador: ${group.creator.username} (${group.creator.email})`}</p>
+          </details>
         </HeaderGroup>
-      </BackGroundHeader>
 
-      <BodyGroup>
-        <Box>
-          <details>
-            <summary>Membros</summary>
-            <BoxDetails>
-              <ul>
-                {group.users_on_group.map((user, index) => (
-                  <li key={index}>{`${user.username} (${user.email})`}</li>
-                ))}
-              </ul>
-            </BoxDetails>
-          </details>
-        </Box>
+        <BodyGroup>
+          <Box>
+            <details>
+              <summary>Membros</summary>
+              <BoxDetails>
+                <ul>
+                  {group.users_on_group.map((user, index) => (
+                    <li key={index}>{`${user.username} (${user.email})`}</li>
+                  ))}
+                </ul>
+              </BoxDetails>
+            </details>
+          </Box>
 
-        <Box>
-          <details>
-            <summary>Metas</summary>
-            <BoxDetails>
-              <ul>
-                {group.goals.length > 0 ? (
-                  group.goals.map((goal, index) => (
-                    <li key={index}>{`${goal.title} (${goal.difficulty})`}</li>
-                  ))
-                ) : (
-                  <p>Não há metas para este grupo.</p>
-                )}
-              </ul>
-            </BoxDetails>
-          </details>
-        </Box>
+          <Box>
+            <details>
+              <summary>Metas</summary>
+              <BoxDetails>
+                <ul>
+                  {group.goals.length > 0 ? (
+                    group.goals.map((goal, index) => (
+                      <li
+                        key={index}
+                      >{`${goal.title} (${goal.difficulty})`}</li>
+                    ))
+                  ) : (
+                    <p>Não há metas para este grupo.</p>
+                  )}
+                </ul>
+              </BoxDetails>
+            </details>
+          </Box>
 
-        <Box>
-          <details>
-            <summary>Atividades</summary>
-            <BoxDetails>
-              <ul>
-                {group.activities.length > 0 ? (
-                  group.activities.map((activity, index) => (
-                    <li
-                      key={index}
-                    >{`${activity.title} (${activity.realization_time})`}</li>
-                  ))
-                ) : (
-                  <p>Não há atividades para este grupo.</p>
-                )}
-              </ul>
-            </BoxDetails>
-          </details>
-        </Box>
-      </BodyGroup>
+          <Box>
+            <details>
+              <summary>Atividades</summary>
+              <BoxDetails>
+                <ul>
+                  {group.activities.length > 0 ? (
+                    group.activities.map((activity, index) => (
+                      <li
+                        key={index}
+                      >{`${activity.title} (${activity.realization_time})`}</li>
+                    ))
+                  ) : (
+                    <p>Não há atividades para este grupo.</p>
+                  )}
+                </ul>
+              </BoxDetails>
+            </details>
+          </Box>
+        </BodyGroup>
+      </BoxOverFlow>
 
       <BoxButton>
         {isSubscribed ? (
