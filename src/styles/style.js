@@ -6,23 +6,20 @@ const GlobalStyles = createGlobalStyle`
      margin: 0;
      padding: 0;
      box-sizing: border-box;
-     text-decoration: none;
 	 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 
  }
- :root{
-        --darkBlue: #14404D;
-        --seablue: #237C95;
-        --yellow: #CEB310;
-        --pictonBlue : #00C3FA;
-        --blue : #3D8CA2;
-        --lightGreen: #60D272;
+ ::root{
+        --darkBlue: #012340;
+        --deepBlush : #dc6e82;
+        --pictonBlue : #59b5e9;
+        --blue : #023E73;
+        --Eminence : #6b2977;
         --white: #f5f5f5;
         --black: #0c0d0d;
-        --darkPink: #89023f;
-        --red: #EC4F4F;
-        --hoverBlue: #191970;
+        --gray: #666360;
+        --red: #c53030;
  }
 
 ol, ul {
@@ -41,28 +38,15 @@ table {
 	border-spacing: 0;
 }
 
-
 ::-webkit-scrollbar {
-  width: 0;               /* width of the entire scrollbar */
-  height: 0;               /* width of the entire scrollbar */
+  width: 4px;               /* width of the entire scrollbar */
+  height: 6px;               /* width of the entire scrollbar */
 }
 
 ::-webkit-scrollbar-thumb {
   background-color: #0a0a0a;    /* color of the scroll thumb */
   border-radius: 20px;       /* roundness of the scroll thumb */
 }
-
-
-@media (min-width: 790px) {
-
-  ::-webkit-scrollbar {
-  width: 4px;               /* width of the entire scrollbar */
-  height: 6px;               /* width of the entire scrollbar */
-}
-
-}
-
-
 
 
 `;
