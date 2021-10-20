@@ -99,4 +99,9 @@ export const getActivities = (data) => {
   return genericGet(url);
 };
 
+export const deletHabit = (id) => {
+  const url = `/habits/${id}/`;
+  return genericDelete(url);
+};
+
 export default api;
