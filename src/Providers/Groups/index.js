@@ -7,15 +7,42 @@ export const GroupsProvider = ({ children }) => {
   const [groups, setGroups] = useState([]);
   const [subscribedGroups, setSubscribedGroups] = useState([]);
   const [category, setCategory] = useState("");
-  const [page, setpage] = useState(1);
+  const [page, setPage] = useState(1);
+  const [response, setResponse] = useState({});
+  const [isPreviousDisabled, setIsPreviousDisabled] = useState(true);
+  const [isNextDisabled, setIsNextDisabled] = useState(true);
+
+  useEffect(() => {
+    setPage(1);
+
+    api.get(`/groups/?category=${category}&page=1`).then((response) => {
+      setResponse(response);
+    });
+
+    // eslint-disable-next-line
+  }, [category]);
 
   useEffect(() => {
     api.get(`/groups/?category=${category}&page=${page}`).then((response) => {
-      setGroups(response.data.results);
+      setResponse(response);
     });
 
+    // eslint-disable-next-line
+  }, [page]);
+
+  useEffect(() => {
+    response.data?.results && setGroups(response.data.results);
+
+    response.data?.previous === null
+      ? setIsPreviousDisabled(true)
+      : setIsPreviousDisabled(false);
+
+    response.data?.next === null
+      ? setIsNextDisabled(true)
+      : setIsNextDisabled(false);
+
     updateUserSubscriptions();
-  }, [category, page]);
+  }, [response]);
 
   const updateUserSubscriptions = () => {
     getUserSubscriptions().then((subscriptionsResponse) =>
@@ -28,13 +55,11 @@ export const GroupsProvider = ({ children }) => {
   };
 
   const addToPage = () => {
-    setpage(page + 1);
+    setPage(page + 1);
   };
 
   const subToPage = () => {
-    if (page > 1) {
-      setpage(page - 1);
-    }
+    setPage(page - 1);
   };
 
   return (
@@ -42,8 +67,9 @@ export const GroupsProvider = ({ children }) => {
       value={{
         groups,
         subscribedGroups,
-        updateUserSubscriptions,
         searchByCategory,
+        isPreviousDisabled,
+        isNextDisabled,
         addToPage,
         subToPage,
       }}

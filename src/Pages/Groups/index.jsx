@@ -7,8 +7,14 @@ import { useHistory } from "react-router";
 const Groups = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const { groups, searchByCategory, addToPage, subToPage } =
-    useContext(GroupsContext);
+  const {
+    groups,
+    searchByCategory,
+    isPreviousDisabled,
+    isNextDisabled,
+    addToPage,
+    subToPage,
+  } = useContext(GroupsContext);
 
   const handleSearchTermChange = (event) => {
     setSearchTerm(event.target.value);
@@ -38,8 +44,12 @@ const Groups = () => {
         />
       </div>
 
-      <button onClick={() => subToPage()}>Voltar</button>
-      <button onClick={() => addToPage()}>avançar</button>
+      <button disabled={isPreviousDisabled} onClick={() => subToPage()}>
+        Voltar
+      </button>
+      <button disabled={isNextDisabled} onClick={() => addToPage()}>
+        Avançar
+      </button>
       <button onClick={() => history.push("/createGroup")}>Criar grupo</button>
       <div>
         {groups.length > 0 ? (
