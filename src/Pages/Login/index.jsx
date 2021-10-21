@@ -53,6 +53,8 @@ const Login = () => {
             label="Nome do Usuário"
             variant="outlined"
             color="primary"
+            erro={!!errors.username}
+            helperText={errors.username?.message}
             {...register("username")}
           />
           <TextField
@@ -60,6 +62,8 @@ const Login = () => {
             label="Senha"
             variant="outlined"
             color="primary"
+            erro={!!errors.password}
+            helperText={errors.password?.message}
             {...register("password")}
           />
 

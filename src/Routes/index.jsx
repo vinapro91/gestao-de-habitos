@@ -6,8 +6,6 @@ import Home from "../Pages/Home/Index";
 import Login from "../Pages/Login";
 import Profile from "../Pages/Profile";
 import SignUp from "../Pages/SignUp";
-import CreateGroup from "../Pages/CreateGroup";
-import CreateHabit from "../Pages/CreateHabit";
 
 const Routes = () => {
   return (
@@ -34,12 +32,6 @@ const Routes = () => {
 
       <Route path="/groups" isPrivate>
         <Groups />
-      </Route>
-      <Route path="/createGroup" isPrivate>
-        <CreateGroup />
-      </Route>
-      <Route path="/createHabit" isPrivate>
-        <CreateHabit />
       </Route>
     </Switch>
   );
