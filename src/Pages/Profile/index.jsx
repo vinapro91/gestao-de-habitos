@@ -3,7 +3,7 @@ import { useHistory } from "react-router";
 import { GroupsContext } from "../../Providers/Groups";
 import { UserIdContext } from "../../Providers/User_id";
 import ProgressBar from "@ramonak/react-progress-bar";
-import api from "../../Services/api";
+import api, { attHabits } from "../../Services/api";
 import {
   BodyProfile,
   BoxGroup,
@@ -44,6 +44,17 @@ const Profile = () => {
   };
   const handleToggleModal = () => {
     setOpen(!open);
+  };
+  const updateProgressHabits = (id, progress) => {
+    const updateProgres = progress < 100 && progress + 10;
+    const updateAchieved = progress === 100 ? true : false;
+    const data = {
+      how_much_achieved: updateProgres,
+      achieved: updateAchieved,
+    };
+    console.log(data);
+    updateUserHabits();
+    attHabits(id, data);
   };
 
   return (
@@ -105,7 +116,12 @@ const Profile = () => {
           </div>
           <ShowMetas>
             {habits.map((habit, indexHabit) => (
-              <div key={indexHabit}>
+              <div
+                onClick={() =>
+                  updateProgressHabits(habit.id, habit.how_much_achieved)
+                }
+                key={indexHabit}
+              >
                 <div>Habito: {habit.title}</div>
                 <div>Categoria: {habit.category}</div>
                 <div>Frequencia: {habit.frequency}</div>
