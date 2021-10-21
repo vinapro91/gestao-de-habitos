@@ -161,3 +161,26 @@ export const BoxButton = styled.div`
     color: #31e3e3;
   }
 `;
+
+export const ButtonBack = styled.div`
+  background-color: #31e3e3;
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+
+  border: 1px solid #e3e;
+  border-radius: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 25px;
+  font-weight: 600;
+
+  &:hover {
+    border: 1px solid #032032;
+    background-color: #03355c;
+    color: #31e3e3;
+  }
+`;

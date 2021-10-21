@@ -2,19 +2,24 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { GroupsContext } from "../../Providers/Groups";
 import GroupCard from "../../Components/GroupCard";
-import { useHistory } from "react-router";
+import CreateGroupForm from "../../Components/CreateGroupForm";
 
 const Groups = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [open, setOpen] = useState(false);
 
-  const { groups, searchByCategory, addToPage, subToPage } =
-    useContext(GroupsContext);
+  const {
+    groups,
+    searchByCategory,
+    isPreviousDisabled,
+    isNextDisabled,
+    addToPage,
+    subToPage,
+  } = useContext(GroupsContext);
 
   const handleSearchTermChange = (event) => {
     setSearchTerm(event.target.value);
   };
-
-  const history = useHistory();
 
   useEffect(() => {
     if (searchTerm.trim().length >= 3) {
@@ -25,6 +30,10 @@ const Groups = () => {
 
     // eslint-disable-next-line
   }, [searchTerm]);
+
+  const handleToggleModal = () => {
+    setOpen(!open);
+  };
 
   return (
     <>
@@ -38,9 +47,13 @@ const Groups = () => {
         />
       </div>
 
-      <button onClick={() => subToPage()}>Voltar</button>
-      <button onClick={() => addToPage()}>avançar</button>
-      <button onClick={() => history.push("/createGroup")}>Criar grupo</button>
+      <button disabled={isPreviousDisabled} onClick={() => subToPage()}>
+        Voltar
+      </button>
+      <button disabled={isNextDisabled} onClick={() => addToPage()}>
+        Avançar
+      </button>
+      <button onClick={handleToggleModal}>Criar grupo</button>
       <div>
         {groups.length > 0 ? (
           groups.map((group) => (
@@ -52,6 +65,8 @@ const Groups = () => {
           <h2>{`Não foi possível localizar grupos com a categoria "${searchTerm}"`}</h2>
         )}
       </div>
+
+      <CreateGroupForm open={open} handleToggleModal={handleToggleModal} />
     </>
   );
 };

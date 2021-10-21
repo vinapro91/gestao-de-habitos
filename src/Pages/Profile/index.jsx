@@ -1,31 +1,31 @@
 import { useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router";
 import { GroupsContext } from "../../Providers/Groups";
 import { UserIdContext } from "../../Providers/User_id";
 import ProgressBar from "@ramonak/react-progress-bar";
-import api from "../../Services/api";
+import api, { attHabits } from "../../Services/api";
 import {
   BodyProfile,
   BoxGroup,
   CardGroup,
   Container,
-  Content,
   MetasGroups,
   ProfileDIv,
   ShowGroups,
-  Meta,
   ShowMetas,
   BoxProfileTop,
 } from "./style";
 import { Link } from "react-router-dom";
 import { HabitsContext } from "../../Providers/Habits";
+import CreateHabitForm from "../../Components/CreateHabitForm/";
 
 const Profile = () => {
   const { userId } = useContext(UserIdContext);
   const { subscribedGroups } = useContext(GroupsContext);
-  const { habits } = useContext(HabitsContext);
-
+  const { habits, deletUserHabit, updateUserHabits } =
+    useContext(HabitsContext);
+  const [open, setOpen] = useState(false);
   const [userInfo, setUserinfo] = useState({});
+
   useEffect(() => {
     api
       .get(`/users/${userId}/`)
@@ -36,6 +36,24 @@ const Profile = () => {
   const logout = () => {
     window.location.reload();
     localStorage.clear();
+  };
+  const handleDelet = (id) => {
+    deletUserHabit(id);
+    updateUserHabits();
+  };
+  const handleToggleModal = () => {
+    setOpen(!open);
+  };
+  const updateProgressHabits = (id, progress) => {
+    const updateProgres = progress < 100 && progress + 10;
+    const updateAchieved = progress === 100 ? true : false;
+    const data = {
+      how_much_achieved: updateProgres,
+      achieved: updateAchieved,
+    };
+    console.log(data);
+    updateUserHabits();
+    attHabits(id, data);
   };
 
   return (
@@ -58,7 +76,9 @@ const Profile = () => {
             {subscribedGroups.map((group, index) => (
               <CardGroup key={index}>
                 <div className="nameCategoryGroup">
-                  <h3>{group.name}</h3>
+                  <Link to={`/groups/${group.id}`} key={group.id}>
+                    <h3>{group.name}</h3>
+                  </Link>
                   <p>{group.category}</p>
                 </div>
                 <div className="descriptionCard">
@@ -73,15 +93,13 @@ const Profile = () => {
                       <div>
                         <p>
                           Progresso:
-                          {/* <ProgressBar
+                          <ProgressBar
                             completed={goal.how_much_achieved}
                             bgColor="#60D272"
-                            height="25px"
-                            width="80%"
-                            labelAlignment="center"
+                            height="15px"
                             baseBgColor="#EC4F4F"
                             labelColor="#8d8383"
-                          /> */}
+                          />
                         </p>
                       </div>
                     </div>
@@ -95,41 +113,36 @@ const Profile = () => {
         <MetasGroups>
           <div className="titleMetas">
             <h2> Hábitos</h2>
+            <button onClick={handleToggleModal}>+</button>
           </div>
           <ShowMetas>
-            {subscribedGroups.map((group, indexGoup) => (
-              <ul key={indexGoup}>
-                {group.goals.map((goal, indexGoals) => (
-                  <Meta key={indexGoals}>
-                    <h3>{goal.title}</h3>
-                    <p>dificuldade: {goal.difficulty}</p>
-                    <Content>
-                      <p>Progresso:</p>
-                      <ProgressBar
-                        completed={goal.how_much_achieved}
-                        bgColor="#60D272"
-                        height="25px"
-                        width="80%"
-                        labelAlignment="center"
-                        baseBgColor="#EC4F4F"
-                        labelColor="#8d8383"
-                      />
-                    </Content>
-                  </Meta>
-                ))}
-              </ul>
-            ))}
             {habits.map((habit, indexHabit) => (
-              <div key={indexHabit}>
+              <div
+                onClick={() =>
+                  updateProgressHabits(habit.id, habit.how_much_achieved)
+                }
+                key={indexHabit}
+              >
                 <div>Habito: {habit.title}</div>
                 <div>Categoria: {habit.category}</div>
                 <div>Frequencia: {habit.frequency}</div>
                 <div>Dificuldade: {habit.difficulty}</div>
+                <ProgressBar
+                  completed={habit.how_much_achieved}
+                  bgColor="#60D272"
+                  height="25px"
+                  width="80%"
+                  labelAlignment="center"
+                  baseBgColor="#EC4F4F"
+                  labelColor="#8d8383"
+                />
+                <button onClick={() => handleDelet(habit.id)}>X</button>
               </div>
             ))}
           </ShowMetas>
         </MetasGroups>
       </BodyProfile>
+      <CreateHabitForm open={open} handleToggleModal={handleToggleModal} />
     </Container>
   );
 };
