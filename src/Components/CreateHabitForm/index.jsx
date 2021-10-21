@@ -11,8 +11,14 @@ import "react-toastify/dist/ReactToastify.css";
 import { postHabits } from "../../Services/api";
 import { UserIdContext } from "../../Providers/User_id";
 import { HabitsContext } from "../../Providers/Habits";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "@mui/material";
 
-const CreateHabitForm = () => {
+const CreateHabitForm = ({ open, handleToggleModal }) => {
   const [status, setStatus] = useState({});
   const history = useHistory();
   const { userId } = useContext(UserIdContext);
@@ -20,6 +26,7 @@ const CreateHabitForm = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -58,35 +65,56 @@ const CreateHabitForm = () => {
     });
   };
 
+  const handleCancelHabit = () => {
+    reset();
+    handleToggleModal();
+  };
   return (
-    <form onSubmit={handleSubmit(handleCreateHabit)}>
-      <TextField
-        label="Titulo"
-        {...register("title")}
-        error={!!errors.name}
-        helperText={errors.name?.message}
-      />
-      <TextField
-        label="Categoria"
-        {...register("category")}
-        error={!!errors.description}
-        helperText={errors.description?.message}
-      />
-      <TextField
-        label="Dificuldade"
-        {...register("difficulty")}
-        error={!!errors.category}
-        helperText={errors.category?.message}
-      />
-      <TextField
-        label="Frenquencia"
-        {...register("frequency")}
-        error={!!errors.category}
-        helperText={errors.category?.message}
-      />
-
-      <Button type="submit">Criar</Button>
-    </form>
+    <Dialog
+      open={open}
+      onClose={handleCancelHabit}
+      maxWidth="xs"
+      sx={{
+        textAlign: "center",
+      }}
+    >
+      <form onSubmit={handleSubmit(handleCreateHabit)}>
+        <DialogTitle>{"Crie um novo hábito:"}</DialogTitle>
+        <DialogContent>
+          <TextField
+            margin="dense"
+            label="Titulo"
+            {...register("title")}
+            error={!!errors.title}
+            helperText={errors.title?.message}
+          />
+          <TextField
+            margin="dense"
+            label="Categoria"
+            {...register("category")}
+            error={!!errors.category}
+            helperText={errors.category?.message}
+          />
+          <TextField
+            margin="dense"
+            label="Dificuldade"
+            {...register("difficulty")}
+            error={!!errors.difficulty}
+            helperText={errors.difficulty?.message}
+          />
+          <TextField
+            margin="dense"
+            label="Frenquencia"
+            {...register("frequency")}
+            error={!!errors.frequency}
+            helperText={errors.frequency?.message}
+          />
+        </DialogContent>
+        <DialogActions sx={{ justifyContent: "center" }}>
+          <Button type="submit">Criar</Button>
+        </DialogActions>
+      </form>
+    </Dialog>
   );
 };
 
