@@ -161,6 +161,11 @@ export const Meta = styled.li`
       align-items: center;
       justify-content: space-evenly;
 
+      &:hover {
+      background-color: #3f3fc7;
+      color: #e3e3e3;
+    }
+
       .progress {
         min-width: 100%;
         width: 100%;
@@ -174,9 +179,16 @@ export const Meta = styled.li`
     background-color: #0202c1;
     border-radius: 20px 2px 20px 2px;
     border: none;
+    cursor: pointer;
+    color: #e3e3e3;
+    font-size: 24px;
 
     position: absolute;
     bottom: 0;
     left: 0;
+
+    &:hover {
+      background-color: var(--pictonBlue);
+    }
   }
 `;
