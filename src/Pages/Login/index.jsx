@@ -12,11 +12,12 @@ import { useHistory } from "react-router";
 import { UserIdContext } from "../../Providers/User_id";
 import { Link } from "react-router-dom";
 import { HabitsContext } from "../../Providers/Habits";
+import { GroupsContext } from "../../Providers/Groups";
 const Login = () => {
   const { addToken } = useContext(TokenContext);
   const { addUserId } = useContext(UserIdContext);
   const { updateUserHabits } = useContext(HabitsContext);
-
+  const { updateUserSubscriptions } = useContext(GroupsContext);
   const formSchema = yup.object().shape({
     username: yup.string().required("Nome de usuário obrigatório "),
     password: yup.string().required("Digite sua Senha"),
@@ -39,6 +40,7 @@ const Login = () => {
         const decoded = jwt_decode(response.data.access);
         addUserId(decoded.user_id);
         updateUserHabits();
+        updateUserSubscriptions();
         history.push("/Profile");
       })
       .catch((err) => console.log(err));

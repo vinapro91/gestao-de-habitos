@@ -25,6 +25,7 @@ const Profile = () => {
     useContext(HabitsContext);
   const [open, setOpen] = useState(false);
   const [userInfo, setUserinfo] = useState({});
+
   useEffect(() => {
     api
       .get(`/users/${userId}/`)
@@ -36,6 +37,7 @@ const Profile = () => {
     window.location.reload();
     localStorage.clear();
   };
+
   const handleDelet = (id) => {
     deletUserHabit(id);
     updateUserHabits();
@@ -83,12 +85,10 @@ const Profile = () => {
                 <details className="descriptionCard">
                   <summary className="txtDescription">Descrição</summary>
                   {group.description}
-
                 </details>
                 <ShowMetas>
                   {group.goals.map((goal, indexGoal) => (
                     <Meta key={`${index}-${indexGoal}`}>
-
                       <h3>{goal.title}</h3>
                       <p>dificuldade: {goal.difficulty}</p>
                       <div>
@@ -118,11 +118,13 @@ const Profile = () => {
           </div>
           <ShowMetas>
             {habits.map((habit, indexHabit) => (
-
-              <Meta habito={true} onClick={() =>
+              <Meta
+                habito={true}
+                onClick={() =>
                   updateProgressHabits(habit.id, habit.how_much_achieved)
                 }
-                key={`habit-${indexHabit}`}>
+                key={`habit-${indexHabit}`}
+              >
                 <div>
                   <h3>{habit.title}</h3>
                   <p>Categoria: {habit.category}</p>
@@ -141,7 +143,6 @@ const Profile = () => {
                     labelColor="#8d8383"
                   />
                 </div>
-
 
                 <button onClick={() => handleDelet(habit.id)}>X</button>
               </Meta>
