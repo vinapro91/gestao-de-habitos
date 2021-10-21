@@ -4,14 +4,18 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import api from "../../Services/api";
 import { useContext } from "react";
 import jwt_decode from "jwt-decode";
-import { BoxForm, ButtonStyled, FullScreen } from "./style.js";
+import { BoxForm, FullScreen } from "./style.js";
+import Button from "../../Components/Button";
 import { TextField } from "@mui/material";
 import { TokenContext } from "../../Providers/Token";
 import { useHistory } from "react-router";
 import { UserIdContext } from "../../Providers/User_id";
+import { Link } from "react-router-dom";
+import { HabitsContext } from "../../Providers/Habits";
 const Login = () => {
   const { addToken } = useContext(TokenContext);
   const { addUserId } = useContext(UserIdContext);
+  const { updateUserHabits } = useContext(HabitsContext);
 
   const formSchema = yup.object().shape({
     username: yup.string().required("Nome de usuário obrigatório "),
@@ -26,8 +30,7 @@ const Login = () => {
     resolver: yupResolver(formSchema),
   });
   const history = useHistory();
-  // Tratar Erros
-  console.log(errors);
+
   const handleLogin = (data) => {
     api
       .post("/sessions/", data)
@@ -35,6 +38,7 @@ const Login = () => {
         addToken(response.data.access);
         const decoded = jwt_decode(response.data.access);
         addUserId(decoded.user_id);
+        updateUserHabits();
         history.push("/Profile");
       })
       .catch((err) => console.log(err));
@@ -46,27 +50,25 @@ const Login = () => {
         <h1>Login</h1>
         <form onSubmit={handleSubmit(handleLogin)}>
           <TextField
-            fullWidth
             label="Nome do Usuário"
-            variant="standard"
-            color="secondary"
+            variant="outlined"
+            color="primary"
             {...register("username")}
           />
           <TextField
-            fullWidth
             type="password"
             label="Senha"
-            variant="standard"
-            color="secondary"
+            variant="outlined"
+            color="primary"
             {...register("password")}
           />
 
-          <ButtonStyled type="submit">Entrar</ButtonStyled>
+          <Button type="submit">Entrar</Button>
         </form>
         <p>
           Já possui cadastro?{" "}
           <span>
-            <a>Cadastre-se</a>
+            <Link to="/signup">Cadastre-se</Link>
           </span>
         </p>
       </BoxForm>

@@ -45,6 +45,15 @@ const genericDelete = (url) => {
     .catch((error) => error.response);
 };
 
+const genericPatch = (url, data) => {
+  const headers = getHeaders();
+
+  return api
+    .patch(url, data, headers)
+    .then((response) => response)
+    .catch((error) => error.response);
+};
+
 export const signUpUser = (user) => {
   const url = "/users/";
 
@@ -65,6 +74,72 @@ export const getUserSubscriptions = () => {
 
 export const unsubscribeFromAGroup = (id) => {
   const url = `/groups/${id}/unsubscribe/`;
+
+  return genericDelete(url);
+};
+
+export const createGroup = (data) => {
+  const url = "/groups/";
+
+  return genericPost(url, data);
+};
+
+export const getGroup = (id) => {
+  const url = `/groups/${id}/`;
+
+  return genericGet(url);
+};
+
+export const getHabits = () => {
+  const url = `/habits/personal/`;
+
+  return genericGet(url);
+};
+
+export const postHabits = (data) => {
+  const url = `/habits/`;
+
+  return genericPost(url, data);
+};
+
+export const getActivities = (data) => {
+  const url = `/activities/?group=${data}&page=1`;
+
+  return genericGet(url);
+};
+
+export const deletHabit = (id) => {
+  const url = `/habits/${id}/`;
+
+  return genericDelete(url);
+};
+
+export const updateGroupCategory = (id, data) => {
+  const url = `/groups/${id}/`;
+
+  return genericPatch(url, data);
+};
+
+export const addGoal = (data) => {
+  const url = "/goals/";
+
+  return genericPost(url, data);
+};
+
+export const deleteGoal = (id) => {
+  const url = `/goals/${id}/`;
+
+  return genericDelete(url);
+};
+
+export const addActivity = (data) => {
+  const url = "/activities/";
+
+  return genericPost(url, data);
+};
+
+export const deleteActivity = (id) => {
+  const url = `/activities/${id}/`;
 
   return genericDelete(url);
 };

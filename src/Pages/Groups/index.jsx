@@ -1,19 +1,29 @@
 import { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { GroupsContext } from "../../Providers/Groups";
 import GroupCard from "../../Components/GroupCard";
+import { useHistory } from "react-router";
 
 const Groups = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const { groups, searchByCategory, addToPage, subToPage } =
-    useContext(GroupsContext);
+  const {
+    groups,
+    searchByCategory,
+    isPreviousDisabled,
+    isNextDisabled,
+    addToPage,
+    subToPage,
+  } = useContext(GroupsContext);
 
   const handleSearchTermChange = (event) => {
     setSearchTerm(event.target.value);
   };
 
+  const history = useHistory();
+
   useEffect(() => {
-    if (searchTerm.length >= 3) {
+    if (searchTerm.trim().length >= 3) {
       searchByCategory(searchTerm);
     } else {
       searchByCategory("");
@@ -34,12 +44,23 @@ const Groups = () => {
         />
       </div>
 
-      <button onClick={() => subToPage()}>Voltar</button>
-      <button onClick={() => addToPage()}>avançar</button>
+      <button disabled={isPreviousDisabled} onClick={() => subToPage()}>
+        Voltar
+      </button>
+      <button disabled={isNextDisabled} onClick={() => addToPage()}>
+        Avançar
+      </button>
+      <button onClick={() => history.push("/createGroup")}>Criar grupo</button>
       <div>
-        {groups.map((group) => (
-          <GroupCard key={group.id} group={group} />
-        ))}
+        {groups.length > 0 ? (
+          groups.map((group) => (
+            <Link to={`/groups/${group.id}`} key={group.id}>
+              <GroupCard group={group} />
+            </Link>
+          ))
+        ) : (
+          <h2>{`Não foi possível localizar grupos com a categoria "${searchTerm}"`}</h2>
+        )}
       </div>
     </>
   );

@@ -18,11 +18,13 @@ import {
   BoxProfileTop,
 } from "./style";
 import { Link } from "react-router-dom";
+import { HabitsContext } from "../../Providers/Habits";
 
 const Profile = () => {
   const { userId } = useContext(UserIdContext);
   const { subscribedGroups } = useContext(GroupsContext);
-
+  const { habits, deletUserHabit, updateUserHabits } =
+    useContext(HabitsContext);
   const [userInfo, setUserinfo] = useState({});
   useEffect(() => {
     api
@@ -31,14 +33,15 @@ const Profile = () => {
       .catch((error) => console.log(error));
   }, [userId]);
   const history = useHistory();
-
   const logout = () => {
-    history.push("/");
+    window.location.reload();
     localStorage.clear();
   };
-  const showAllGroups = () => {
-    history.push("/groups");
+  const handleDelet = (id) => {
+    deletUserHabit(id);
+    updateUserHabits();
   };
+
   return (
     <Container>
       <BoxProfileTop>
@@ -63,11 +66,29 @@ const Profile = () => {
                   <p>{group.category}</p>
                 </div>
                 <div className="descriptionCard">
-                  <p>
-                    <span className="txtDescription">Descrição:</span>
-                    {group.description}
-                  </p>
+                  <span className="txtDescription">Descrição:</span>
+                  {group.description}
                 </div>
+                {group.goals.map((goal, indexGoal) => (
+                  <>
+                    <div key={indexGoal}>
+                      <h3>{goal.title}</h3>
+                      <p>dificuldade: {goal.difficulty}</p>
+                      <div>
+                        <p>
+                          Progresso:
+                          <ProgressBar
+                            completed={goal.how_much_achieved}
+                            bgColor="#60D272"
+                            height="15px"
+                            baseBgColor="#EC4F4F"
+                            labelColor="#8d8383"
+                          />
+                        </p>
+                      </div>
+                    </div>
+                  </>
+                ))}
               </CardGroup>
             ))}
           </ShowGroups>
@@ -75,9 +96,11 @@ const Profile = () => {
 
         <MetasGroups>
           <div className="titleMetas">
-            <h2> Metas</h2>
+            <h2> Hábitos</h2>
+            <button onClick={() => history.push("/createHabit")}>+</button>
           </div>
           <ShowMetas>
+<<<<<<< HEAD
             {subscribedGroups.map((group, indexGoup) => (
               <ul key={indexGoup}>
                 {group.goals.map((goal, indexGoals) => (
@@ -99,6 +122,25 @@ const Profile = () => {
                   </Meta>
                 ))}
               </ul>
+=======
+            {habits.map((habit, indexHabit) => (
+              <div key={indexHabit}>
+                <div>Habito: {habit.title}</div>
+                <div>Categoria: {habit.category}</div>
+                <div>Frequencia: {habit.frequency}</div>
+                <div>Dificuldade: {habit.difficulty}</div>
+                <ProgressBar
+                  completed={habit.how_much_achieved}
+                  bgColor="#60D272"
+                  height="25px"
+                  width="80%"
+                  labelAlignment="center"
+                  baseBgColor="#EC4F4F"
+                  labelColor="#8d8383"
+                />
+                <button onClick={() => handleDelet(habit.id)}>X</button>
+              </div>
+>>>>>>> develop
             ))}
           </ShowMetas>
         </MetasGroups>
