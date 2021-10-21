@@ -18,6 +18,9 @@ import {
 import { Link } from "react-router-dom";
 import { HabitsContext } from "../../Providers/Habits";
 import CreateHabitForm from "../../Components/CreateHabitForm/";
+import Button from "../../Components/Button";
+import { Addbutton } from "./style";
+
 const Profile = () => {
   const { userId } = useContext(UserIdContext);
   const { subscribedGroups } = useContext(GroupsContext);
@@ -62,7 +65,7 @@ const Profile = () => {
       <BoxProfileTop>
         <ProfileDIv>
           <h2>Bem Vindo , {userInfo.username}</h2>
-          <button onClick={logout}>Sair</button>
+          <Button onClick={logout}>Sair</Button>
         </ProfileDIv>
       </BoxProfileTop>
       <BodyProfile>
@@ -114,7 +117,7 @@ const Profile = () => {
         <MetasGroups>
           <div className="titleMetas">
             <h2> Hábitos</h2>
-            <button onClick={handleToggleModal}>+</button>
+            <Addbutton onClick={handleToggleModal}>+</Addbutton>
           </div>
           <ShowMetas>
             {habits.map((habit, indexHabit) => (

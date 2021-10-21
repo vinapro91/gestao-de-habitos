@@ -192,3 +192,20 @@ export const Meta = styled.li`
     }
   }
 `;
+
+export const Addbutton = styled.button`
+  background: var(--blue);
+  color: var(--white);
+  height: 25px;
+  border: 2px solid #fff;
+  border-radius: 100%;
+  width: 25px;
+  transition: 0.5s;
+  margin-top: 0px;
+  margin-left: 5px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+  :hover {
+    border-color: var(--hoverBlue);
+    color: var(--hoverBlue);
+  }
+`;
