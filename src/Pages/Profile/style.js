@@ -100,24 +100,29 @@ export const CardGroup = styled.li`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
+  /* justify-content: space-evenly; */
 
   div.nameCategoryGroup {
     width: 100%;
     text-align: center;
   }
 
-  div.descriptionCard {
-    min-height: 70%;
+  details {
     width: 100%;
-  }
-  span.txtDescription::after {
-    content: "";
-    display: block;
+    max-height: 90px;
+
+    summary {
+      width: 100%;
+      height: 20px;
+      display: flex;
+      cursor: pointer;
+    }
   }
 `;
 
 export const MetasGroups = styled(CardGroup).attrs({ as: "div" })`
+  width: 97%;
+
   .titleMetas {
     width: 100%;
     height: 40px;
@@ -132,6 +137,7 @@ export const MetasGroups = styled(CardGroup).attrs({ as: "div" })`
 `;
 
 export const ShowMetas = styled.ul`
+  width: 100%;
   height: 300px;
   overflow: auto;
 `;
@@ -140,4 +146,49 @@ export const Meta = styled.li`
   margin: 5px 0;
   padding: 5px 10px;
   border-bottom: 1px solid #0202c1;
+
+  ${({ habito }) =>
+    habito &&
+    `
+      width: 180px;
+      height: 200px;
+      border-radius: 20px 5px;
+      border: 1px solid #0202c1;
+      position: relative;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+
+      &:hover {
+      background-color: #3f3fc7;
+      color: #e3e3e3;
+    }
+
+      .progress {
+        min-width: 100%;
+        width: 100%;
+        margin-bottom: 10px;
+      }
+    `}
+
+  button {
+    width: 100%;
+    height: 30px;
+    background-color: #0202c1;
+    border-radius: 20px 2px 20px 2px;
+    border: none;
+    cursor: pointer;
+    color: #e3e3e3;
+    font-size: 24px;
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    &:hover {
+      background-color: var(--pictonBlue);
+    }
+  }
 `;
