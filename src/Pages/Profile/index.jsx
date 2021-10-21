@@ -85,11 +85,11 @@ const Profile = () => {
                 </div>
                 {group.goals.map((goal, indexGoal) => (
                   <>
-                    <div key={indexGoal}>
+                    <div key={`${index}-${indexGoal}`}>
                       <h3>{goal.title}</h3>
                       <p>dificuldade: {goal.difficulty}</p>
                       <div>
-                        <p>
+                        <div>
                           Progresso:
                           <ProgressBar
                             completed={goal.how_much_achieved}
@@ -98,7 +98,7 @@ const Profile = () => {
                             baseBgColor="#EC4F4F"
                             labelColor="#8d8383"
                           />
-                        </p>
+                        </div>
                       </div>
                     </div>
                   </>
@@ -119,7 +119,7 @@ const Profile = () => {
                 onClick={() =>
                   updateProgressHabits(habit.id, habit.how_much_achieved)
                 }
-                key={indexHabit}
+                key={`habit-${indexHabit}`}
               >
                 <div>Habito: {habit.title}</div>
                 <div>Categoria: {habit.category}</div>
