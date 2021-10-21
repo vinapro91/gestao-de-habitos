@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router";
 import { GroupsContext } from "../../Providers/Groups";
 import { UserIdContext } from "../../Providers/User_id";
 import ProgressBar from "@ramonak/react-progress-bar";
@@ -9,11 +8,9 @@ import {
   BoxGroup,
   CardGroup,
   Container,
-  Content,
   MetasGroups,
   ProfileDIv,
   ShowGroups,
-  Meta,
   ShowMetas,
   BoxProfileTop,
 } from "./style";
@@ -33,7 +30,7 @@ const Profile = () => {
       .then((response) => setUserinfo(response.data))
       .catch((error) => console.log(error));
   }, [userId]);
-  const history = useHistory();
+
   const logout = () => {
     window.location.reload();
     localStorage.clear();
@@ -66,7 +63,9 @@ const Profile = () => {
             {subscribedGroups.map((group, index) => (
               <CardGroup key={index}>
                 <div className="nameCategoryGroup">
-                  <h3>{group.name}</h3>
+                  <Link to={`/groups/${group.id}`} key={group.id}>
+                    <h3>{group.name}</h3>
+                  </Link>
                   <p>{group.category}</p>
                 </div>
                 <div className="descriptionCard">
