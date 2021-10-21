@@ -34,7 +34,7 @@ const CreateHabitForm = ({ open, handleToggleModal }) => {
 
   useEffect(() => {
     if (status.status === 201) {
-      const message = "Atividade criada com sucesso!";
+      const message = "Hábito criado com sucesso!";
       toast.success(message, toastOptions);
 
       history.push("/profile");
