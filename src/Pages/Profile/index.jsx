@@ -65,13 +65,13 @@ const Profile = () => {
                   <h3>{group.name}</h3>
                   <p>{group.category}</p>
                 </div>
-                <div className="descriptionCard">
-                  <span className="txtDescription">Descrição:</span>
+                <details className="descriptionCard">
+                  <summary className="txtDescription">Descrição</summary>
                   {group.description}
-                </div>
-                {group.goals.map((goal, indexGoal) => (
-                  <>
-                    <div key={indexGoal}>
+                </details>
+                <ShowMetas>
+                  {group.goals.map((goal, indexGoal) => (
+                    <Meta key={indexGoal}>
                       <h3>{goal.title}</h3>
                       <p>dificuldade: {goal.difficulty}</p>
                       <div>
@@ -86,9 +86,9 @@ const Profile = () => {
                           />
                         </p>
                       </div>
-                    </div>
-                  </>
-                ))}
+                    </Meta>
+                  ))}
+                </ShowMetas>
               </CardGroup>
             ))}
           </ShowGroups>
@@ -100,47 +100,28 @@ const Profile = () => {
             <button onClick={() => history.push("/createHabit")}>+</button>
           </div>
           <ShowMetas>
-<<<<<<< HEAD
-            {subscribedGroups.map((group, indexGoup) => (
-              <ul key={indexGoup}>
-                {group.goals.map((goal, indexGoals) => (
-                  <Meta key={indexGoals}>
-                    <h3>{goal.title}</h3>
-                    <p>dificuldade: {goal.difficulty}</p>
-                    <Content>
-                      <p>Progresso:</p>
-                      <ProgressBar
-                        completed={goal.how_much_achieved}
-                        bgColor="#60D272"
-                        height="25px"
-                        width="80%"
-                        labelAlignment="center"
-                        baseBgColor="#EC4F4F"
-                        labelColor="#8d8383"
-                      />
-                    </Content>
-                  </Meta>
-                ))}
-              </ul>
-=======
             {habits.map((habit, indexHabit) => (
-              <div key={indexHabit}>
-                <div>Habito: {habit.title}</div>
-                <div>Categoria: {habit.category}</div>
-                <div>Frequencia: {habit.frequency}</div>
-                <div>Dificuldade: {habit.difficulty}</div>
-                <ProgressBar
-                  completed={habit.how_much_achieved}
-                  bgColor="#60D272"
-                  height="25px"
-                  width="80%"
-                  labelAlignment="center"
-                  baseBgColor="#EC4F4F"
-                  labelColor="#8d8383"
-                />
+              <Meta habito={true} key={indexHabit}>
+                <div>
+                  <h3>{habit.title}</h3>
+                  <p>Categoria: {habit.category}</p>
+                  <p>Frequencia: {habit.frequency}</p>
+                  <p>Nivel: {habit.difficulty}</p>
+                </div>
+                <div className="progress">
+                  <p>Progreço</p>
+                  <ProgressBar
+                    completed={habit.how_much_achieved}
+                    bgColor="#60D272"
+                    height="15px"
+                    width="100%"
+                    labelAlignment="center"
+                    baseBgColor="#EC4F4F"
+                    labelColor="#8d8383"
+                  />
+                </div>
                 <button onClick={() => handleDelet(habit.id)}>X</button>
-              </div>
->>>>>>> develop
+              </Meta>
             ))}
           </ShowMetas>
         </MetasGroups>
