@@ -64,11 +64,13 @@ const ActivityCreateModal = ({
     );
 
     reset();
+    setDate(Date.now());
     handleToggleModal();
   };
 
   const handleCancelActivity = () => {
     reset();
+    setDate(Date.now());
     handleToggleModal();
   };
 
