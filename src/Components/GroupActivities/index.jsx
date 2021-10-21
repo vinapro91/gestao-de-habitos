@@ -1,5 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { UserIdContext } from "../../Providers/User_id";
+import { deleteActivity } from "../../Services/api";
+import { toast } from "react-toastify";
+import toastOptions from "../../Utils/toastOptions";
 import ActivityCreateModal from "../ActivityCreateModal";
 import dateFormatter from "../../Utils/dateFormatter";
 import { BoxDetails } from "./styles";
@@ -11,14 +14,36 @@ const GroupActivities = ({ group, updateGroup }) => {
 
   const [open, setOpen] = useState(false);
 
+  const [response, setresponse] = useState({});
+
   useEffect(() => {
     setIsSubscribed(group.users_on_group.some((user) => user.id === userId));
 
     // eslint-disable-next-line
   }, [group]);
 
+  useEffect(() => {
+    if (response.status === 204) {
+      const message = "Atividade removida com sucesso!";
+      toast.success(message, toastOptions);
+
+      updateGroup();
+    } else if (response.status >= 400) {
+      const message = "Erro desconhecido";
+      toast.error(message, toastOptions);
+    }
+
+    // eslint-disable-next-line
+  }, [response]);
+
   const handleToggleModal = () => {
     setOpen(!open);
+  };
+
+  const handleRemoveActivity = (id) => {
+    deleteActivity(id).then((activityResponse) =>
+      setresponse(activityResponse)
+    );
   };
 
   return (
@@ -40,6 +65,12 @@ const GroupActivities = ({ group, updateGroup }) => {
                 {`${activity.title} (${dateFormatter(
                   activity.realization_time
                 )})`}
+
+                {isSubscribed && (
+                  <button onClick={() => handleRemoveActivity(activity.id)}>
+                    Remover
+                  </button>
+                )}
               </li>
             ))
           ) : (

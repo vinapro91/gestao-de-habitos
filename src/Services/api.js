@@ -126,10 +126,22 @@ export const addGoal = (data) => {
   return genericPost(url, data);
 };
 
+export const deleteGoal = (id) => {
+  const url = `/goals/${id}/`;
+
+  return genericDelete(url);
+};
+
 export const addActivity = (data) => {
   const url = "/activities/";
 
   return genericPost(url, data);
+};
+
+export const deleteActivity = (id) => {
+  const url = `/activities/${id}/`;
+
+  return genericDelete(url);
 };
 
 export default api;
