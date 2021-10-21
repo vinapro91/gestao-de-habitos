@@ -11,9 +11,9 @@ import {
   MetasGroups,
   ProfileDIv,
   ShowGroups,
+  Meta,
   ShowMetas,
   BoxProfileTop,
-  Meta,
 } from "./style";
 import { Link } from "react-router-dom";
 import { HabitsContext } from "../../Providers/Habits";
@@ -86,11 +86,11 @@ const Profile = () => {
                 </details>
                 <ShowMetas>
                   {group.goals.map((goal, indexGoal) => (
-                    <Meta key={indexGoal}>
+                    <Meta key={`${index}-${indexGoal}`}>
                       <h3>{goal.title}</h3>
                       <p>dificuldade: {goal.difficulty}</p>
                       <div>
-                        <p>
+                        <div>
                           Progresso:
                           <ProgressBar
                             completed={goal.how_much_achieved}
@@ -99,7 +99,7 @@ const Profile = () => {
                             baseBgColor="#EC4F4F"
                             labelColor="#8d8383"
                           />
-                        </p>
+                        </div>
                       </div>
                     </Meta>
                   ))}
@@ -121,7 +121,7 @@ const Profile = () => {
                 onClick={() =>
                   updateProgressHabits(habit.id, habit.how_much_achieved)
                 }
-                key={indexHabit}
+                key={`habit-${indexHabit}`}
               >
                 <div>
                   <h3>{habit.title}</h3>
