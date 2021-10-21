@@ -140,9 +140,9 @@ const Group = () => {
                 <ul>
                   {group.activities.length > 0 ? (
                     group.activities.map((activity, index) => (
-                      <li
-                        key={index}
-                      >{`${activity.title} (${activity.realization_time})`}</li>
+                      <li key={index}>
+                        {`${activity.title} (${activity.realization_time})`}
+                      </li>
                     ))
                   ) : (
                     <p>Não há atividades para este grupo.</p>
