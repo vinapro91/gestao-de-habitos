@@ -143,5 +143,9 @@ export const deleteActivity = (id) => {
 
   return genericDelete(url);
 };
+export const attHabits = (id, data) => {
+  const url = `habits/${id}/`;
 
+  return genericPatch(url, data);
+};
 export default api;

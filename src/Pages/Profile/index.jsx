@@ -1,30 +1,29 @@
 import { useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router";
 import { GroupsContext } from "../../Providers/Groups";
 import { UserIdContext } from "../../Providers/User_id";
 import ProgressBar from "@ramonak/react-progress-bar";
-import api from "../../Services/api";
+import api, { attHabits } from "../../Services/api";
 import {
   BodyProfile,
   BoxGroup,
   CardGroup,
   Container,
-  Content,
   MetasGroups,
   ProfileDIv,
   ShowGroups,
-  Meta,
   ShowMetas,
   BoxProfileTop,
+  Meta,
 } from "./style";
 import { Link } from "react-router-dom";
 import { HabitsContext } from "../../Providers/Habits";
-
+import CreateHabitForm from "../../Components/CreateHabitForm/";
 const Profile = () => {
   const { userId } = useContext(UserIdContext);
   const { subscribedGroups } = useContext(GroupsContext);
   const { habits, deletUserHabit, updateUserHabits } =
     useContext(HabitsContext);
+  const [open, setOpen] = useState(false);
   const [userInfo, setUserinfo] = useState({});
   useEffect(() => {
     api
@@ -32,7 +31,7 @@ const Profile = () => {
       .then((response) => setUserinfo(response.data))
       .catch((error) => console.log(error));
   }, [userId]);
-  const history = useHistory();
+
   const logout = () => {
     window.location.reload();
     localStorage.clear();
@@ -40,6 +39,20 @@ const Profile = () => {
   const handleDelet = (id) => {
     deletUserHabit(id);
     updateUserHabits();
+  };
+  const handleToggleModal = () => {
+    setOpen(!open);
+  };
+  const updateProgressHabits = (id, progress) => {
+    const updateProgres = progress < 100 && progress + 10;
+    const updateAchieved = progress === 100 ? true : false;
+    const data = {
+      how_much_achieved: updateProgres,
+      achieved: updateAchieved,
+    };
+    console.log(data);
+    updateUserHabits();
+    attHabits(id, data);
   };
 
   return (
@@ -62,7 +75,9 @@ const Profile = () => {
             {subscribedGroups.map((group, index) => (
               <CardGroup key={index}>
                 <div className="nameCategoryGroup">
-                  <h3>{group.name}</h3>
+                  <Link to={`/groups/${group.id}`} key={group.id}>
+                    <h3>{group.name}</h3>
+                  </Link>
                   <p>{group.category}</p>
                 </div>
                 <details className="descriptionCard">
@@ -97,11 +112,17 @@ const Profile = () => {
         <MetasGroups>
           <div className="titleMetas">
             <h2> Hábitos</h2>
-            <button onClick={() => history.push("/createHabit")}>+</button>
+            <button onClick={handleToggleModal}>+</button>
           </div>
           <ShowMetas>
             {habits.map((habit, indexHabit) => (
-              <Meta habito={true} key={indexHabit}>
+              <Meta
+                habito={true}
+                onClick={() =>
+                  updateProgressHabits(habit.id, habit.how_much_achieved)
+                }
+                key={indexHabit}
+              >
                 <div>
                   <h3>{habit.title}</h3>
                   <p>Categoria: {habit.category}</p>
@@ -126,6 +147,7 @@ const Profile = () => {
           </ShowMetas>
         </MetasGroups>
       </BodyProfile>
+      <CreateHabitForm open={open} handleToggleModal={handleToggleModal} />
     </Container>
   );
 };
