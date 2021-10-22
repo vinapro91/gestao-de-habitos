@@ -2,7 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { GroupsContext } from "../../Providers/Groups";
 import { UserIdContext } from "../../Providers/User_id";
 import ProgressBar from "@ramonak/react-progress-bar";
-import api, { attHabits } from "../../Services/api";
+import api, { attHabits, attGoals } from "../../Services/api";
+
 import {
   BodyProfile,
   BoxGroup,
@@ -14,17 +15,22 @@ import {
   Meta,
   ShowMetas,
   BoxProfileTop,
+  ButtonPlus,
 } from "./style";
 import { Link } from "react-router-dom";
 import { HabitsContext } from "../../Providers/Habits";
 import CreateHabitForm from "../../Components/CreateHabitForm/";
+import Button from "../../Components/Button";
+
 const Profile = () => {
   const { userId } = useContext(UserIdContext);
-  const { subscribedGroups } = useContext(GroupsContext);
+  const { subscribedGroups, updateUserSubscriptions } =
+    useContext(GroupsContext);
   const { habits, deletUserHabit, updateUserHabits } =
     useContext(HabitsContext);
   const [open, setOpen] = useState(false);
   const [userInfo, setUserinfo] = useState({});
+
   useEffect(() => {
     api
       .get(`/users/${userId}/`)
@@ -36,6 +42,7 @@ const Profile = () => {
     window.location.reload();
     localStorage.clear();
   };
+
   const handleDelet = (id) => {
     deletUserHabit(id);
     updateUserHabits();
@@ -50,9 +57,19 @@ const Profile = () => {
       how_much_achieved: updateProgres,
       achieved: updateAchieved,
     };
-    console.log(data);
-    updateUserHabits();
+    updateUserSubscriptions();
     attHabits(id, data);
+  };
+
+  const updateProgressGoals = (id, progress) => {
+    const updateProgres = progress < 100 && progress + 10;
+    const updateAchieved = progress === 100 ? true : false;
+    const data = {
+      how_much_achieved: updateProgres,
+      achieved: updateAchieved,
+    };
+    attGoals(id, data);
+    updateUserHabits();
   };
 
   return (
@@ -60,7 +77,7 @@ const Profile = () => {
       <BoxProfileTop>
         <ProfileDIv>
           <h2>Bem Vindo , {userInfo.username}</h2>
-          <button onClick={logout}>Sair</button>
+          <Button onClick={logout}>Sair</Button>
         </ProfileDIv>
       </BoxProfileTop>
       <BodyProfile>
@@ -90,14 +107,19 @@ const Profile = () => {
                       <h3>{goal.title}</h3>
                       <p>dificuldade: {goal.difficulty}</p>
                       <div>
-                        <div>
+                        <div
+                          onClick={() =>
+                            updateProgressGoals(goal.id, goal.how_much_achieved)
+                          }
+                        >
                           Progresso:
                           <ProgressBar
                             completed={goal.how_much_achieved}
-                            bgColor="#60D272"
+                            bgColor="#74c21a"
                             height="15px"
-                            baseBgColor="#EC4F4F"
-                            labelColor="#8d8383"
+                            labelAlignment="start"
+                            baseBgColor="#237c95"
+                            labelColor="#fcfbfb"
                           />
                         </div>
                       </div>
@@ -112,9 +134,10 @@ const Profile = () => {
         <MetasGroups>
           <div className="titleMetas">
             <h2> Hábitos</h2>
-            <button onClick={handleToggleModal}>+</button>
+
+            <ButtonPlus onClick={handleToggleModal}>+</ButtonPlus>
           </div>
-          <ShowMetas>
+          <ShowMetas habits>
             {habits.map((habit, indexHabit) => (
               <Meta
                 habito={true}
@@ -130,15 +153,15 @@ const Profile = () => {
                   <p>Nivel: {habit.difficulty}</p>
                 </div>
                 <div className="progress">
-                  <p>Progreço</p>
+                  <p>Progresso</p>
                   <ProgressBar
                     completed={habit.how_much_achieved}
-                    bgColor="#60D272"
+                    bgColor="#74c21a"
                     height="15px"
-                    width="100%"
-                    labelAlignment="center"
-                    baseBgColor="#EC4F4F"
-                    labelColor="#8d8383"
+                    width="100px"
+                    labelAlignment="start"
+                    baseBgColor="#237c95"
+                    labelColor="#fcfbfb"
                   />
                 </div>
                 <button onClick={() => handleDelet(habit.id)}>X</button>
