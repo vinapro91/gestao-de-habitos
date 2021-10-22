@@ -14,6 +14,7 @@ import {
   Meta,
   ShowMetas,
   BoxProfileTop,
+  ButtonPlus,
 } from "./style";
 import { Link } from "react-router-dom";
 import { HabitsContext } from "../../Providers/Habits";
@@ -97,10 +98,11 @@ const Profile = () => {
                           Progresso:
                           <ProgressBar
                             completed={goal.how_much_achieved}
-                            bgColor="#60D272"
+                            bgColor="#74c21a"
                             height="15px"
-                            baseBgColor="#EC4F4F"
-                            labelColor="#8d8383"
+                            labelAlignment="start"
+                            baseBgColor="#237c95"
+                            labelColor="#fcfbfb"
                           />
                         </div>
                       </div>
@@ -115,7 +117,7 @@ const Profile = () => {
         <MetasGroups>
           <div className="titleMetas">
             <h2> Hábitos</h2>
-            <button onClick={handleToggleModal}>+</button>
+            <ButtonPlus onClick={handleToggleModal}>+</ButtonPlus>
           </div>
           <ShowMetas>
             {habits.map((habit, indexHabit) => (
@@ -133,15 +135,15 @@ const Profile = () => {
                   <p>Nivel: {habit.difficulty}</p>
                 </div>
                 <div className="progress">
-                  <p>Progreço</p>
+                  <p>Progresso</p>
                   <ProgressBar
                     completed={habit.how_much_achieved}
-                    bgColor="#60D272"
+                    bgColor="#74c21a"
                     height="15px"
-                    width="100%"
-                    labelAlignment="center"
-                    baseBgColor="#EC4F4F"
-                    labelColor="#8d8383"
+                    width="100px"
+                    labelAlignment="start"
+                    baseBgColor="#237c95"
+                    labelColor="#fcfbfb"
                   />
                 </div>
 
