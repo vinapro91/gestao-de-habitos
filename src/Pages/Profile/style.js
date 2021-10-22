@@ -128,6 +128,7 @@ export const MetasGroups = styled(CardGroup).attrs({ as: "div" })`
     height: 40px;
     margin-bottom: 10px;
     border-bottom: 1px solid gray;
+    position: relative;
 
     display: flex;
     align-items: center;
@@ -146,6 +147,14 @@ export const Meta = styled.li`
   margin: 5px 0;
   padding: 5px 10px;
   border-bottom: 1px solid #0202c1;
+
+  .progress {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+  }
 
   ${({ habito }) =>
     habito &&
@@ -190,5 +199,30 @@ export const Meta = styled.li`
     &:hover {
       background-color: var(--pictonBlue);
     }
+  }
+`;
+
+export const ButtonPlus = styled.div`
+  background-color: #31e3e3;
+  height: 25px;
+  width: 25px;
+  margin-left: 5px;
+  cursor: pointer;
+
+  border: 1px solid #e3e;
+  border-radius: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 25px;
+  font-weight: 600;
+
+  &:hover {
+    border: 1px solid #032032;
+    background-color: #03355c;
+    color: #31e3e3;
+
   }
 `;

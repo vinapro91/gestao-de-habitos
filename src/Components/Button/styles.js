@@ -8,7 +8,7 @@ export const ButtonStyled = styled.button`
   border-radius: 5px;
   width: ${(props) => (props.homePage ? "100%" : "100px")};
   transition: 0.5s;
-  margin-top: 20px;
+  margin-top: ${(props) => (props.homePage ? "20px" : "0px")};
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
   :hover {
     border-color: var(--hoverBlue);

@@ -148,4 +148,10 @@ export const attHabits = (id, data) => {
 
   return genericPatch(url, data);
 };
+
+export const attGoals = (id, data) => {
+  const url = `/goals/${id}/`;
+
+  return genericPatch(url, data);
+};
 export default api;
