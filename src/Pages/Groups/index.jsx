@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { GroupsContext } from "../../Providers/Groups";
 import GroupCard from "../../Components/GroupCard";
 import CreateGroupForm from "../../Components/CreateGroupForm";
-
+import { useHistory } from "react-router";
 import { ButtonNextPage, FullScreenGroups, ShowGroupsCards } from "./style";
 import { TextField } from "@mui/material";
 
@@ -19,7 +19,7 @@ const Groups = () => {
     addToPage,
     subToPage,
   } = useContext(GroupsContext);
-
+  const history = useHistory();
   const handleSearchTermChange = (event) => {
     setSearchTerm(event.target.value);
   };
@@ -85,7 +85,7 @@ const Groups = () => {
       </div>
 
       <div className="ButtonBack">
-        <ButtonNextPage onClick={handleToggleModal} large={true}>
+        <ButtonNextPage onClick={() => history.push("/")} large={true}>
           voltar
         </ButtonNextPage>
       </div>
