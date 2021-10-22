@@ -21,8 +21,6 @@ import { Link } from "react-router-dom";
 import { HabitsContext } from "../../Providers/Habits";
 import CreateHabitForm from "../../Components/CreateHabitForm/";
 import Button from "../../Components/Button";
-import { Addbutton } from "./style";
-
 
 const Profile = () => {
   const { userId } = useContext(UserIdContext);
@@ -138,7 +136,6 @@ const Profile = () => {
             <h2> Hábitos</h2>
 
             <ButtonPlus onClick={handleToggleModal}>+</ButtonPlus>
-
           </div>
           <ShowMetas>
             {habits.map((habit, indexHabit) => (
