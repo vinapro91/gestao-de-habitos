@@ -7,16 +7,18 @@ import GroupGoals from "../../Components/GroupGoals";
 import GroupActivities from "../../Components/GroupActivities";
 import GroupToggleSubscription from "../../Components/GroupToggleSubscription";
 import {
-  BackGroundHeader,
   BodyGroup,
   Box,
   BoxButton,
+  ButtonBack,
   ContainerGroup,
   HeaderGroup,
 } from "./style";
+import { useHistory } from "react-router-dom";
 
 const Group = () => {
   const [group, setGroup] = useState({});
+  const history = useHistory();
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -33,6 +35,9 @@ const Group = () => {
       setIsLoading(false);
     });
   };
+  const back = () => {
+    history.push("/profile");
+  };
 
   if (isLoading) {
     return <h1>Carregando...</h1>;
@@ -40,16 +45,16 @@ const Group = () => {
 
   return (
     <ContainerGroup>
-      <BackGroundHeader>
-        <HeaderGroup>
-          <h1>{group.name}</h1>
-          <p>{group.description}</p>
+      <HeaderGroup>
+        <h1>{group.name}</h1>
+        <p>{group.description}</p>
 
-          <GroupCategory group={group} updateGroup={updateGroup} />
+        <GroupCategory group={group} updateGroup={updateGroup} />
 
-          <p>{`Criador: ${group.creator.username} (${group.creator.email})`}</p>
-        </HeaderGroup>
-      </BackGroundHeader>
+        <p>{`Criador: ${group.creator.username} (${group.creator.email})`}</p>
+
+        <ButtonBack onClick={back}>{"<"}</ButtonBack>
+      </HeaderGroup>
 
       <BodyGroup>
         <Box>

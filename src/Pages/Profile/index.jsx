@@ -18,6 +18,7 @@ import {
 import { Link } from "react-router-dom";
 import { HabitsContext } from "../../Providers/Habits";
 import CreateHabitForm from "../../Components/CreateHabitForm/";
+
 const Profile = () => {
   const { userId } = useContext(UserIdContext);
   const { subscribedGroups } = useContext(GroupsContext);
