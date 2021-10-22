@@ -15,16 +15,13 @@ export const FullScreenGroups = styled(Container)`
 
     color: #f3f3f3;
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
-
   }
 
   div.BoxButtonsPage {
     width: 60%;
 
-
     margin-top: 10px;
     margin-bottom: 10px;
-
 
     display: flex;
     align-items: center;
@@ -44,7 +41,6 @@ export const FullScreenGroups = styled(Container)`
     border-top: 1px solid #e3e3;
     margin-top: 5px;
   }
-
 
   div.ButtonBack {
     height: 60px;
@@ -66,7 +62,6 @@ export const ShowGroupsCards = styled.ul`
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-
 
   a {
     color: var(--black);
@@ -91,5 +86,4 @@ export const ButtonNextPage = styled(ButtonPlus)`
     border-radius: 3px;
     font-size: 16px;
     `}
-
 `;
