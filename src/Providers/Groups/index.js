@@ -30,6 +30,12 @@ export const GroupsProvider = ({ children }) => {
     // eslint-disable-next-line
   }, [page]);
 
+  const updateUserSubscriptions = () => {
+    getUserSubscriptions().then((subscriptionsResponse) =>
+      setSubscribedGroups(subscriptionsResponse.data)
+    );
+  };
+
   useEffect(() => {
     response.data?.results && setGroups(response.data.results);
 
@@ -43,12 +49,6 @@ export const GroupsProvider = ({ children }) => {
 
     updateUserSubscriptions();
   }, [response]);
-
-  const updateUserSubscriptions = () => {
-    getUserSubscriptions().then((subscriptionsResponse) =>
-      setSubscribedGroups(subscriptionsResponse.data)
-    );
-  };
 
   const searchByCategory = (searchedTerm) => {
     setCategory(searchedTerm);
@@ -72,6 +72,7 @@ export const GroupsProvider = ({ children }) => {
         isNextDisabled,
         addToPage,
         subToPage,
+        updateUserSubscriptions,
       }}
     >
       {children}
