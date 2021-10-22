@@ -6,7 +6,9 @@ const GroupCard = ({ group }) => {
       <h3>{group.name}</h3>
       <div className="positionCategory-menber">
         <p>{group.category}</p>
-        <p>membros : {group.users_on_group.length}</p>
+        <p>
+          membros <span>{group.users_on_group.length}</span>
+        </p>
       </div>
       <div className="descriptionGroup">
         <p>Descrição:</p>
