@@ -235,3 +235,7 @@ export const ButtonPlus = styled.div`
     color: #31e3e3;
   }
 `;
+
+export const PointerOnDiv = styled.div`
+  cursor: pointer;
+`;
