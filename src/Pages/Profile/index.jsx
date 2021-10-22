@@ -25,7 +25,8 @@ import Button from "../../Components/Button";
 
 const Profile = () => {
   const { userId } = useContext(UserIdContext);
-  const { subscribedGroups } = useContext(GroupsContext);
+  const { subscribedGroups, updateUserSubscriptions } =
+    useContext(GroupsContext);
   const { habits, deletUserHabit, updateUserHabits } =
     useContext(HabitsContext);
   const [open, setOpen] = useState(false);
@@ -41,7 +42,13 @@ const Profile = () => {
 
   useEffect(() => {
     if (response.status === 200) {
-      updateUserHabits();
+      response.config?.url &&
+        response.config.url.startsWith("habits/") &&
+        updateUserHabits();
+
+      response.config?.url &&
+        response.config.url.startsWith("/goals/") &&
+        updateUserSubscriptions();
     }
 
     // eslint-disable-next-line
@@ -76,8 +83,7 @@ const Profile = () => {
       how_much_achieved: updateProgres,
       achieved: updateAchieved,
     };
-    attGoals(id, data);
-    updateUserHabits();
+    attGoals(id, data).then((goalsResponse) => setResponse(goalsResponse));
   };
 
   return (
@@ -125,7 +131,7 @@ const Profile = () => {
                             completed={goal.how_much_achieved}
                             bgColor="#74c21a"
                             height="15px"
-                            labelAlignment="start"
+                            labelAlignment="left"
                             baseBgColor="#237c95"
                             labelColor="#fcfbfb"
                           />
