@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { TextField, FormControl } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import schema from "./schema";
@@ -16,6 +16,9 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  InputLabel,
+  MenuItem,
+  Select,
 } from "@mui/material";
 
 const CreateHabitForm = ({ open, handleToggleModal }) => {
@@ -34,7 +37,7 @@ const CreateHabitForm = ({ open, handleToggleModal }) => {
 
   useEffect(() => {
     if (status.status === 201) {
-      const message = "Atividade criada com sucesso!";
+      const message = "Hábito criado com sucesso!";
       toast.success(message, toastOptions);
 
       history.push("/profile");
@@ -95,20 +98,36 @@ const CreateHabitForm = ({ open, handleToggleModal }) => {
             error={!!errors.category}
             helperText={errors.category?.message}
           />
-          <TextField
-            margin="dense"
-            label="Dificuldade"
-            {...register("difficulty")}
-            error={!!errors.difficulty}
-            helperText={errors.difficulty?.message}
-          />
-          <TextField
-            margin="dense"
-            label="Frenquencia"
-            {...register("frequency")}
-            error={!!errors.frequency}
-            helperText={errors.frequency?.message}
-          />
+          <FormControl fullWidth margin="dense" sx={{ maxWidth: 230 }}>
+            <InputLabel id="difficulty-select">
+              Qual é a dificuldade do Hábito?
+            </InputLabel>
+            <Select
+              labelId="difficulty-select"
+              label="Qual é a dificuldade da meta?"
+              defaultValue="fácil"
+              margin="dense"
+              {...register("difficulty")}
+            >
+              <MenuItem value="fácil">Fácil</MenuItem>
+              <MenuItem value="moderado">Moderado</MenuItem>
+              <MenuItem value="difícil">Difícil</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl fullWidth margin="dense" sx={{ maxWidth: 230 }}>
+            <InputLabel id="frequency-select">Qual a frequência?</InputLabel>
+            <Select
+              labelId="frequency-select"
+              label="Qual a frequência?"
+              defaultValue="diária"
+              margin="dense"
+              {...register("frequency")}
+            >
+              <MenuItem value="diária">Diária</MenuItem>
+              <MenuItem value="semanal">Semanal</MenuItem>
+              <MenuItem value="mensal">Mensal</MenuItem>
+            </Select>
+          </FormControl>
         </DialogContent>
         <DialogActions sx={{ justifyContent: "center" }}>
           <Button type="submit">Criar</Button>
