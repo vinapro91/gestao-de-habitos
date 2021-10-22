@@ -174,7 +174,7 @@ const Profile = () => {
                       bgColor="#74c21a"
                       height="15px"
                       width="100px"
-                      labelAlignment="start"
+                      labelAlignment="left"
                       baseBgColor="#237c95"
                       labelColor="#fcfbfb"
                     />
