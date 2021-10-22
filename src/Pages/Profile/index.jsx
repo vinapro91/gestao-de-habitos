@@ -16,6 +16,7 @@ import {
   ShowMetas,
   BoxProfileTop,
   ButtonPlus,
+  PointerOnDiv,
 } from "./style";
 import { Link } from "react-router-dom";
 import { HabitsContext } from "../../Providers/Habits";
@@ -114,7 +115,7 @@ const Profile = () => {
                       <h3>{goal.title}</h3>
                       <p>dificuldade: {goal.difficulty}</p>
                       <div>
-                        <div
+                        <PointerOnDiv
                           onClick={() =>
                             updateProgressGoals(goal.id, goal.how_much_achieved)
                           }
@@ -128,7 +129,7 @@ const Profile = () => {
                             baseBgColor="#237c95"
                             labelColor="#fcfbfb"
                           />
-                        </div>
+                        </PointerOnDiv>
                       </div>
                     </Meta>
                   ))}
@@ -161,15 +162,17 @@ const Profile = () => {
                 </div>
                 <div className="progress">
                   <p>Progresso</p>
-                  <ProgressBar
-                    completed={habit.how_much_achieved}
-                    bgColor="#74c21a"
-                    height="15px"
-                    width="100px"
-                    labelAlignment="start"
-                    baseBgColor="#237c95"
-                    labelColor="#fcfbfb"
-                  />
+                  <PointerOnDiv>
+                    <ProgressBar
+                      completed={habit.how_much_achieved}
+                      bgColor="#74c21a"
+                      height="15px"
+                      width="100px"
+                      labelAlignment="start"
+                      baseBgColor="#237c95"
+                      labelColor="#fcfbfb"
+                    />
+                  </PointerOnDiv>
                 </div>
 
                 <button onClick={() => handleDelet(habit.id)}>X</button>

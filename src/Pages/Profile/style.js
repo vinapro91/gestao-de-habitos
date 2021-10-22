@@ -223,6 +223,9 @@ export const ButtonPlus = styled.div`
     border: 1px solid #032032;
     background-color: #03355c;
     color: #31e3e3;
-
   }
+`;
+
+export const PointerOnDiv = styled.div`
+  cursor: pointer;
 `;
