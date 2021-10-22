@@ -14,6 +14,7 @@ import {
   Meta,
   ShowMetas,
   BoxProfileTop,
+  ButtonPlus,
 } from "./style";
 import { Link } from "react-router-dom";
 import { HabitsContext } from "../../Providers/Habits";
@@ -116,7 +117,7 @@ const Profile = () => {
         <MetasGroups>
           <div className="titleMetas">
             <h2> Hábitos</h2>
-            <button onClick={handleToggleModal}>+</button>
+            <ButtonPlus onClick={handleToggleModal}>+</ButtonPlus>
           </div>
           <ShowMetas>
             {habits.map((habit, indexHabit) => (
