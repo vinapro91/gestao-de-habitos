@@ -24,12 +24,12 @@ import Button from "../../Components/Button";
 
 const Profile = () => {
   const { userId } = useContext(UserIdContext);
-  const { subscribedGroups, updateUserSubscriptions } =
-    useContext(GroupsContext);
+  const { subscribedGroups } = useContext(GroupsContext);
   const { habits, deletUserHabit, updateUserHabits } =
     useContext(HabitsContext);
   const [open, setOpen] = useState(false);
   const [userInfo, setUserinfo] = useState({});
+  const [response, setResponse] = useState({});
 
   useEffect(() => {
     api
@@ -37,6 +37,14 @@ const Profile = () => {
       .then((response) => setUserinfo(response.data))
       .catch((error) => console.log(error));
   }, [userId]);
+
+  useEffect(() => {
+    if (response.status === 200) {
+      updateUserHabits();
+    }
+
+    // eslint-disable-next-line
+  }, [response]);
 
   const logout = () => {
     window.location.reload();
@@ -57,8 +65,7 @@ const Profile = () => {
       how_much_achieved: updateProgres,
       achieved: updateAchieved,
     };
-    updateUserSubscriptions();
-    attHabits(id, data);
+    attHabits(id, data).then((habitsResponse) => setResponse(habitsResponse));
   };
 
   const updateProgressGoals = (id, progress) => {
