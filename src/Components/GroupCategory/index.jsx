@@ -3,6 +3,7 @@ import { UserIdContext } from "../../Providers/User_id";
 import { updateGroupCategory } from "../../Services/api";
 import { toast } from "react-toastify";
 import toastOptions from "../../Utils/toastOptions";
+import { EdditButton } from "../../Pages/Group/style";
 
 const GroupCreator = ({ group, updateGroup }) => {
   const { userId } = useContext(UserIdContext);
@@ -69,7 +70,7 @@ const GroupCreator = ({ group, updateGroup }) => {
           ) : (
             <>
               <span>{group.category}</span>
-              <button onClick={handleCategoryEditable}>Editar</button>
+              <EdditButton onClick={handleCategoryEditable}>Editar</EdditButton>
             </>
           )}
         </>

@@ -4,7 +4,7 @@ import { deleteGoal } from "../../Services/api";
 import { toast } from "react-toastify";
 import toastOptions from "../../Utils/toastOptions";
 import GoalCreateModal from "../GoalCreateModal";
-import { BoxDetails } from "./styles";
+import { BoxDetails, ButtonAddGroup, ButtonRemoveGroup } from "./styles";
 
 const GroupGoals = ({ group, updateGroup }) => {
   const { userId } = useContext(UserIdContext);
@@ -47,9 +47,9 @@ const GroupGoals = ({ group, updateGroup }) => {
     <details>
       <summary>
         <div>
-          Metas
+          Metas{" "}
           {isSubscribed && (
-            <button onClick={handleToggleModal}>Adicionar</button>
+            <ButtonAddGroup onClick={handleToggleModal}>+</ButtonAddGroup>
           )}
         </div>
       </summary>
@@ -62,9 +62,9 @@ const GroupGoals = ({ group, updateGroup }) => {
                 {`${goal.title} (${goal.difficulty})`}
 
                 {isSubscribed && (
-                  <button onClick={() => handleRemoveGoal(goal.id)}>
-                    Remover
-                  </button>
+                  <ButtonRemoveGroup onClick={() => handleRemoveGoal(goal.id)}>
+                    -
+                  </ButtonRemoveGroup>
                 )}
               </li>
             ))

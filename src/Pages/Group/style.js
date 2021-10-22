@@ -198,3 +198,22 @@ export const CenterBox = styled.div`
   align-items: center;
   justify-content: center;
 `;
+export const EdditButton = styled.button`
+  background-color: #31e3e3;
+  height: 25px;
+  width: auto;
+  cursor: pointer;
+  margin-left: 5px;
+
+  border: 1px solid #e3e;
+  border-radius: 50px;
+  text-align: center;
+
+  font-size: 1rem;
+
+  &:hover {
+    border: 1px solid #032032;
+    background-color: #03355c;
+    color: #31e3e3;
+  }
+`;
