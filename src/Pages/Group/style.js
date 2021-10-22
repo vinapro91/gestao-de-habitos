@@ -97,10 +97,12 @@ export const BoxDetails = styled.div`
 `;
 
 export const HeaderGroup = styled.header`
-  width: 99%;
+  width: 90%;
   min-height: 35px;
   margin-top: 5px;
   padding-bottom: 10px;
+
+  position: relative;
 
   background-color: #96e2f8;
   border-radius: 20px;
@@ -178,9 +180,21 @@ export const ButtonBack = styled.div`
   font-size: 25px;
   font-weight: 600;
 
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
   &:hover {
     border: 1px solid #032032;
     background-color: #03355c;
     color: #31e3e3;
   }
+`;
+
+export const CenterBox = styled.div`
+  width: 100%;
+  height: 20vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

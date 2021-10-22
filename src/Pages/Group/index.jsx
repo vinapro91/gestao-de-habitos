@@ -11,6 +11,7 @@ import {
   Box,
   BoxButton,
   ButtonBack,
+  CenterBox,
   ContainerGroup,
   HeaderGroup,
 } from "./style";
@@ -45,16 +46,18 @@ const Group = () => {
 
   return (
     <ContainerGroup>
-      <HeaderGroup>
-        <h1>{group.name}</h1>
-        <p>{group.description}</p>
+      <CenterBox>
+        <HeaderGroup>
+          <h1>{group.name}</h1>
+          <p>{group.description}</p>
 
-        <GroupCategory group={group} updateGroup={updateGroup} />
+          <GroupCategory group={group} updateGroup={updateGroup} />
 
-        <p>{`Criador: ${group.creator.username} (${group.creator.email})`}</p>
+          <p>{`Criador: ${group.creator.username} (${group.creator.email})`}</p>
 
-        <ButtonBack onClick={back}>{"<"}</ButtonBack>
-      </HeaderGroup>
+          <ButtonBack onClick={back}>{"<"}</ButtonBack>
+        </HeaderGroup>
+      </CenterBox>
 
       <BodyGroup>
         <Box>

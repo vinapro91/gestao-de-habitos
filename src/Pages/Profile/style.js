@@ -147,6 +147,14 @@ export const Meta = styled.li`
   padding: 5px 10px;
   border-bottom: 1px solid #0202c1;
 
+  .progress {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+  }
+
   ${({ habito }) =>
     habito &&
     `
