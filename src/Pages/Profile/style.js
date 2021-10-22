@@ -138,9 +138,19 @@ export const MetasGroups = styled(CardGroup).attrs({ as: "div" })`
 `;
 
 export const ShowMetas = styled.ul`
+  display: flex;
+  flex-direction: column;
+  align-items: ${(props) => (props.habits ? "center" : null)};
   width: 100%;
   height: 300px;
   overflow: auto;
+
+  @media screen and (min-width: 768px) {
+    flex-direction: ${(props) => (props.habits ? "row" : "column")};
+    li {
+      margin-left: 10px;
+    }
+  }
 `;
 
 export const Meta = styled.li`
@@ -160,7 +170,7 @@ export const Meta = styled.li`
     habito &&
     `
       width: 180px;
-      height: 200px;
+      min-height: 200px;
       border-radius: 20px 5px;
       border: 1px solid #0202c1;
       position: relative;
@@ -223,6 +233,5 @@ export const ButtonPlus = styled.div`
     border: 1px solid #032032;
     background-color: #03355c;
     color: #31e3e3;
-
   }
 `;

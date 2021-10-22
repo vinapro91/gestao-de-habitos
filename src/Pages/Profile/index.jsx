@@ -144,7 +144,7 @@ const Profile = () => {
 
             <ButtonPlus onClick={handleToggleModal}>+</ButtonPlus>
           </div>
-          <ShowMetas>
+          <ShowMetas habits>
             {habits.map((habit, indexHabit) => (
               <Meta
                 habito={true}
@@ -171,7 +171,6 @@ const Profile = () => {
                     labelColor="#fcfbfb"
                   />
                 </div>
-
                 <button onClick={() => handleDelet(habit.id)}>X</button>
               </Meta>
             ))}
