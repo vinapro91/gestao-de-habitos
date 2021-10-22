@@ -24,8 +24,7 @@ import Button from "../../Components/Button";
 
 const Profile = () => {
   const { userId } = useContext(UserIdContext);
-  const { subscribedGroups, updateUserSubscriptions } =
-    useContext(GroupsContext);
+  const { subscribedGroups } = useContext(GroupsContext);
   const { habits, deletUserHabit, updateUserHabits } =
     useContext(HabitsContext);
   const [open, setOpen] = useState(false);
