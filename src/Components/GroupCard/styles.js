@@ -3,8 +3,10 @@ import styled from "styled-components";
 export const Card = styled.li`
   width: 300px;
 
+
   min-height: 110px;
   height: 170px;
+
 
   padding: 10px;
   margin: 20px;
@@ -36,16 +38,20 @@ export const Card = styled.li`
     align-items: center;
     justify-content: space-around;
 
+
     span::before {
       content: "";
       display: block;
     }
+
   }
 
   div.descriptionGroup {
     height: 80px;
     width: 100%;
 
+
     overflow: auto;
+
   }
 `;

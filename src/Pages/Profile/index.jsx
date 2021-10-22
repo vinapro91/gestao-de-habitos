@@ -16,6 +16,7 @@ import {
   ShowMetas,
   BoxProfileTop,
   ButtonPlus,
+  PointerOnDiv,
 } from "./style";
 import { Link } from "react-router-dom";
 import { HabitsContext } from "../../Providers/Habits";
@@ -30,6 +31,7 @@ const Profile = () => {
     useContext(HabitsContext);
   const [open, setOpen] = useState(false);
   const [userInfo, setUserinfo] = useState({});
+  const [response, setResponse] = useState({});
 
   useEffect(() => {
     api
@@ -37,6 +39,20 @@ const Profile = () => {
       .then((response) => setUserinfo(response.data))
       .catch((error) => console.log(error));
   }, [userId]);
+
+  useEffect(() => {
+    if (response.status === 200) {
+      response.config?.url &&
+        response.config.url.startsWith("habits/") &&
+        updateUserHabits();
+
+      response.config?.url &&
+        response.config.url.startsWith("/goals/") &&
+        updateUserSubscriptions();
+    }
+
+    // eslint-disable-next-line
+  }, [response]);
 
   const logout = () => {
     window.location.reload();
@@ -57,8 +73,7 @@ const Profile = () => {
       how_much_achieved: updateProgres,
       achieved: updateAchieved,
     };
-    updateUserSubscriptions();
-    attHabits(id, data);
+    attHabits(id, data).then((habitsResponse) => setResponse(habitsResponse));
   };
 
   const updateProgressGoals = (id, progress) => {
@@ -68,8 +83,7 @@ const Profile = () => {
       how_much_achieved: updateProgres,
       achieved: updateAchieved,
     };
-    attGoals(id, data);
-    updateUserHabits();
+    attGoals(id, data).then((goalsResponse) => setResponse(goalsResponse));
   };
 
   return (
@@ -107,7 +121,7 @@ const Profile = () => {
                       <h3>{goal.title}</h3>
                       <p>dificuldade: {goal.difficulty}</p>
                       <div>
-                        <div
+                        <PointerOnDiv
                           onClick={() =>
                             updateProgressGoals(goal.id, goal.how_much_achieved)
                           }
@@ -117,11 +131,11 @@ const Profile = () => {
                             completed={goal.how_much_achieved}
                             bgColor="#74c21a"
                             height="15px"
-                            labelAlignment="start"
+                            labelAlignment="left"
                             baseBgColor="#237c95"
                             labelColor="#fcfbfb"
                           />
-                        </div>
+                        </PointerOnDiv>
                       </div>
                     </Meta>
                   ))}
@@ -137,7 +151,7 @@ const Profile = () => {
 
             <ButtonPlus onClick={handleToggleModal}>+</ButtonPlus>
           </div>
-          <ShowMetas>
+          <ShowMetas habits>
             {habits.map((habit, indexHabit) => (
               <Meta
                 habito={true}
@@ -154,17 +168,18 @@ const Profile = () => {
                 </div>
                 <div className="progress">
                   <p>Progresso</p>
-                  <ProgressBar
-                    completed={habit.how_much_achieved}
-                    bgColor="#74c21a"
-                    height="15px"
-                    width="100px"
-                    labelAlignment="start"
-                    baseBgColor="#237c95"
-                    labelColor="#fcfbfb"
-                  />
+                  <PointerOnDiv>
+                    <ProgressBar
+                      completed={habit.how_much_achieved}
+                      bgColor="#74c21a"
+                      height="15px"
+                      width="100px"
+                      labelAlignment="left"
+                      baseBgColor="#237c95"
+                      labelColor="#fcfbfb"
+                    />
+                  </PointerOnDiv>
                 </div>
-
                 <button onClick={() => handleDelet(habit.id)}>X</button>
               </Meta>
             ))}

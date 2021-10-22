@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import toastOptions from "../../Utils/toastOptions";
 import ActivityCreateModal from "../ActivityCreateModal";
 import dateFormatter from "../../Utils/dateFormatter";
-import { BoxDetails } from "./styles";
+import { BoxDetails, ButtonAddGroup, ButtonRemoveGroup } from "./styles";
 
 const GroupActivities = ({ group, updateGroup }) => {
   const { userId } = useContext(UserIdContext);
@@ -52,7 +52,7 @@ const GroupActivities = ({ group, updateGroup }) => {
         <div>
           Atividades
           {isSubscribed && (
-            <button onClick={handleToggleModal}>Adicionar</button>
+            <ButtonAddGroup onClick={handleToggleModal}>+</ButtonAddGroup>
           )}
         </div>
       </summary>
@@ -67,9 +67,11 @@ const GroupActivities = ({ group, updateGroup }) => {
                 )})`}
 
                 {isSubscribed && (
-                  <button onClick={() => handleRemoveActivity(activity.id)}>
-                    Remover
-                  </button>
+                  <ButtonRemoveGroup
+                    onClick={() => handleRemoveActivity(activity.id)}
+                  >
+                    -
+                  </ButtonRemoveGroup>
                 )}
               </li>
             ))
