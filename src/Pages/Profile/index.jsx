@@ -23,7 +23,8 @@ import CreateHabitForm from "../../Components/CreateHabitForm/";
 
 const Profile = () => {
   const { userId } = useContext(UserIdContext);
-  const { subscribedGroups } = useContext(GroupsContext);
+  const { subscribedGroups, updateUserSubscriptions } =
+    useContext(GroupsContext);
   const { habits, deletUserHabit, updateUserHabits } =
     useContext(HabitsContext);
   const [open, setOpen] = useState(false);
@@ -55,7 +56,7 @@ const Profile = () => {
       how_much_achieved: updateProgres,
       achieved: updateAchieved,
     };
-    updateUserHabits();
+    updateUserSubscriptions();
     attHabits(id, data);
   };
 
