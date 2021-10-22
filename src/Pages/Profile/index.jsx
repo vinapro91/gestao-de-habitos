@@ -2,7 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { GroupsContext } from "../../Providers/Groups";
 import { UserIdContext } from "../../Providers/User_id";
 import ProgressBar from "@ramonak/react-progress-bar";
-import api, { attHabits } from "../../Services/api";
+import api, { attHabits, attGoals } from "../../Services/api";
+
 import {
   BodyProfile,
   BoxGroup,
@@ -54,9 +55,19 @@ const Profile = () => {
       how_much_achieved: updateProgres,
       achieved: updateAchieved,
     };
-    console.log(data);
     updateUserHabits();
     attHabits(id, data);
+  };
+
+  const updateProgressGoals = (id, progress) => {
+    const updateProgres = progress < 100 && progress + 10;
+    const updateAchieved = progress === 100 ? true : false;
+    const data = {
+      how_much_achieved: updateProgres,
+      achieved: updateAchieved,
+    };
+    attGoals(id, data);
+    updateUserHabits();
   };
 
   return (
@@ -94,7 +105,11 @@ const Profile = () => {
                       <h3>{goal.title}</h3>
                       <p>dificuldade: {goal.difficulty}</p>
                       <div>
-                        <div>
+                        <div
+                          onClick={() =>
+                            updateProgressGoals(goal.id, goal.how_much_achieved)
+                          }
+                        >
                           Progresso:
                           <ProgressBar
                             completed={goal.how_much_achieved}
