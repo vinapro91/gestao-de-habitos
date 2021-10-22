@@ -84,20 +84,6 @@ const Groups = () => {
         </ShowGroupsCards>
       </div>
 
-      <div className="listCard">
-        <ShowGroupsCards>
-          {groups.length > 0 ? (
-            groups.map((group) => (
-              <Link to={`/groups/${group.id}`} key={group.id}>
-                <GroupCard group={group} />
-              </Link>
-            ))
-          ) : (
-            <h2>{`Não foi possível localizar grupos com a categoria "${searchTerm}"`}</h2>
-          )}
-        </ShowGroupsCards>
-      </div>
-
       <div className="ButtonBack">
         <ButtonNextPage onClick={handleToggleModal} large={true}>
           voltar
